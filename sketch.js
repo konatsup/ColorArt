@@ -11,7 +11,7 @@ let currentColorNumber = 0;
 const BASE_SECTION_HEIGHT = MAX_HEIGHT / MAX_COLOR_COUNT;
 
 function preload() {
-  bgm = loadSound(ROOT_PATH + "assets/sound/melt.mp3");
+  // bgm = loadSound(ROOT_PATH + "assets/sound/melt.mp3");
   se1 = loadSound(ROOT_PATH + "assets/sound/water.mp3");
 }
 
@@ -60,12 +60,12 @@ function keyTyped() {
 }
 
 function mousePressed() {
-  if (bgm.isPlaying()) {
-    bgm.stop();
-  } else {
-    // bgm.setVolume(0.2);
-    // bgm.play();
-  }
+  // if (bgm.isPlaying()) {
+  // bgm.stop();
+  // } else {
+  // bgm.setVolume(0.2);
+  // bgm.play();
+  // }
 }
 
 let inc = 10;
