@@ -29,8 +29,7 @@ function draw() {
   print(currentColorNumber * (360 / MAX_COLOR_COUNT));
   fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
   rect(0, 0, displayWidth, displayHeight);
-  fill(0, 0, 90);
-  rect(0, 0, displayWidth * (currentPosition / MAX_HEIGHT), 20, 50);
+
 
   rippleList.map((ripple, i) => {
     if (ripple.radius >= MAX_RADIUS) {
@@ -43,6 +42,9 @@ function draw() {
     noFill();
     ellipse(ripple.x, ripple.y, ripple.radius);
   });
+
+  fill(0, 0, 90);
+  rect(0, 0, displayWidth * (currentPosition / MAX_HEIGHT), 20, 50);
 
 }
 
@@ -57,8 +59,8 @@ function mouseWheel(event) {
     currentPosition = 0;
   }
   currentColorNumber = Math.floor(currentPosition / BASE_SECTION_HEIGHT);
-  print("currentPosition: " + currentPosition);
-  print("colorNum: " + currentColorNumber);
+  // print("currentPosition: " + currentPosition);
+  // print("colorNum: " + currentColorNumber);
 
 }
 
