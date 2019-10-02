@@ -1,8 +1,9 @@
 let rectWidth;
 let bgm;
+const rootPath = 'http://localhost:8100/'
 
 function preload() {
-  bgm = loadSound('http://localhost:8100/melt.mp3');
+  bgm = loadSound(rootPath + 'assets/sound/melt.mp3');
 }
 
 
@@ -11,7 +12,6 @@ function setup() {
   noStroke();
   background(230);
   rectWidth = width / 4;
-  bgm.play();
 
 }
 
@@ -41,10 +41,10 @@ function draw() {
 }
 
 function mousePressed() {
-  // if (bgm.isPlaying()) {
-  //   bgm.stop();
+  if (bgm.isPlaying()) {
+    bgm.stop();
 
-  // } else {
-  //   bgm.play();
-  // }
+  } else {
+    bgm.play();
+  }
 }
