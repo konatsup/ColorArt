@@ -33,6 +33,12 @@ https://color-tap.netlify.com/
   - 例: 水色で水
     - ポチャンというような水滴の音
 
+## 参考サイト
+
+- https://aidn.jp/otohira/
+- https://aidn.jp/mikutap
+- https://graphicbeats.net
+
 ## Tone&Manner
 
 <img src="https://i.imgur.com/cwqdPBe.jpg" width="300">
