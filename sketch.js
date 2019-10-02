@@ -77,11 +77,16 @@ function keyTyped() {
   }
 }
 
-function mousePressed() {
-  // if (bgm.isPlaying()) {
-  // bgm.stop();
-  // } else {
-  // bgm.setVolume(0.2);
-  // bgm.play();
-  // }
+
+function touchStarted() {
+  if (touches.length <= 0) {
+    return;
+  }
+  rippleList.push({
+    x: touches[0].x,
+    y: touches[0].y,
+    radius: 1
+  });
+  se1.play();
+
 }
