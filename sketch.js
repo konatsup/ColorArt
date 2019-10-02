@@ -1,7 +1,9 @@
 let rectWidth;
 let bgm;
 let diameter = 0;
-const ROOT_PATH = "http://localhost:8100/";
+// const ROOT_PATH = "http://localhost:8100/";
+const ROOT_PATH = ""; // local server host
+
 let currentPosition = 0;
 const MAX_HEIGHT = 10000;
 const MAX_COLOR_COUNT = 8;
