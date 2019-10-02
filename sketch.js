@@ -9,6 +9,9 @@ const MAX_HEIGHT = 10000;
 const MAX_COLOR_COUNT = 8;
 let currentColorNumber = 0;
 const BASE_SECTION_HEIGHT = MAX_HEIGHT / MAX_COLOR_COUNT;
+const MAX_RADIUS = 2500;
+let rippleList = [];
+let inc = 10;
 
 function preload() {
   // bgm = loadSound(ROOT_PATH + "assets/sound/melt.mp3");
@@ -29,10 +32,18 @@ function draw() {
   fill(0, 0, 90);
   rect(0, 0, displayWidth * (currentPosition / MAX_HEIGHT), 20, 50);
 
-  if (mouseIsPressed) {
-    ripple();
-  }
-  // background(230);
+  rippleList.map((ripple, i) => {
+    if (ripple.radius >= MAX_RADIUS) {
+      rippleList.splice(i, 1);
+      return;
+    }
+    ripple.radius += inc;
+    strokeWeight(4);
+    stroke(255);
+    noFill();
+    ellipse(ripple.x, ripple.y, ripple.radius);
+  });
+
 }
 
 function mouseWheel(event) {
@@ -54,6 +65,11 @@ function mouseWheel(event) {
 function keyTyped() {
   switch (key) {
     case "a":
+      rippleList.push({
+        x: mouseX,
+        y: mouseY,
+        radius: 1
+      });
       se1.play();
       break;
   }
@@ -66,15 +82,4 @@ function mousePressed() {
   // bgm.setVolume(0.2);
   // bgm.play();
   // }
-}
-
-let inc = 10;
-
-function ripple() {
-  diameter += inc;
-
-  // noFill();
-  // strokeWeight(5);
-  // stroke(255, 204, 0);
-  // ellipse(mouseX, mouseY, diameter, diameter);
 }
