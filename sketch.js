@@ -79,6 +79,12 @@ const getRandomPositionY = () => {
   return Math.floor(Math.random() * (max + 1 - min)) + min;
 }
 
+function windowResized() {
+  centerCanvas();
+  resizeCanvas(displayWidth, displayHeight);
+  background(255, 0, 200);
+}
+
 /*
 function mouseWheel(event) {
   currentPosition += event.delta;
