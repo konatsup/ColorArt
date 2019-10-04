@@ -1,8 +1,8 @@
 let rectWidth;
 let bgm;
 let diameter = 0;
-const ROOT_PATH = "http://localhost:8100/";
-// const ROOT_PATH = ""; // local server host
+// const ROOT_PATH = "http://localhost:8100/";
+const ROOT_PATH = ""; // local server host
 
 let currentPosition = 0;
 const MAX_HEIGHT = 10000;
@@ -12,6 +12,7 @@ const BASE_SECTION_HEIGHT = MAX_HEIGHT / MAX_COLOR_COUNT;
 const MAX_RADIUS = 2500;
 let rippleList = [];
 let inc = 10;
+const fadeoutLimit = 2.0;
 
 function preload() {
   // bgm = loadSound(ROOT_PATH + "assets/sound/melt.mp3");
@@ -22,6 +23,7 @@ function setup() {
   createCanvas(displayWidth, displayHeight - 100);
   noStroke();
   rectWidth = width / 4;
+  // bgm.play();
 }
 
 function draw() {
@@ -30,14 +32,15 @@ function draw() {
   fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
   rect(0, 0, displayWidth, displayHeight);
 
-
   rippleList.map((ripple, i) => {
     if (ripple.radius >= MAX_RADIUS) {
       rippleList.splice(i, 1);
       return;
     }
     ripple.radius += inc;
-    let alpha = 1.0 - (ripple.radius * 2 / MAX_RADIUS);
+    ripple.fadeCurrentTime++;
+    let alpha = fadeoutAlpha(fadeoutLimit, ripple.fadeCurrentTime / 60, fadeoutLimit);
+
     strokeWeight(4);
     stroke(255, alpha);
     noFill();
@@ -71,7 +74,8 @@ function keyTyped() {
       rippleList.push({
         x: mouseX,
         y: mouseY,
-        radius: 1
+        radius: 1,
+        fadeCurrentTime: 0
       });
       se1.play();
       break;
@@ -86,8 +90,14 @@ function touchStarted() {
   rippleList.push({
     x: touches[0].x,
     y: touches[0].y,
-    radius: 1
+    radius: 1,
+    fadeCurrentTime: 0
   });
   se1.play();
 
+}
+
+function fadeoutAlpha(limit, currentMills, speed) {
+  // console.log(currentMills);
+  return 1.0 - (currentMills * speed / limit);
 }
