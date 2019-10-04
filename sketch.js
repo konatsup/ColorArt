@@ -31,6 +31,19 @@ function draw() {
   fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
   rect(0, 0, displayWidth, displayHeight);
 
+  fill(255)
+    // .stroke(0, 100, 100)
+    // .strokeWeight(5)
+    .textSize(200)
+    .textStyle(BOLD)
+    .textAlign(CENTER)
+    .text(centerTextList[currentColorNumber], displayWidth / 2, displayHeight / 2);
+
+  textSize(80)
+    .textStyle(BOLD)
+    .textAlign(CENTER)
+    .text(underTextList[currentColorNumber], displayWidth / 2, displayHeight / 2 + 110);
+
   rippleList.map((ripple, i) => {
     if (ripple.radius >= MAX_RADIUS) {
       rippleList.splice(i, 1);
