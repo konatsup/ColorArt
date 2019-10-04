@@ -13,6 +13,8 @@ const MAX_RADIUS = 2500;
 let rippleList = [];
 let inc = 10;
 const fadeoutLimit = 2.0;
+const centerTextList = ['赤', '橙', '黄', '緑', '水', '青', '紫', '桃'];
+const underTextList = ['Red', 'Orange', 'Yellow', 'Green', 'LightBlue', 'Blue', 'Purple', 'Pink'];
 
 function preload() {
   // bgm = loadSound(ROOT_PATH + "assets/sound/melt.mp3");
@@ -59,11 +61,9 @@ function draw() {
     ellipse(ripple.x, ripple.y, ripple.radius);
   });
 
-  fill(0, 0, 90);
-  rect(0, 0, displayWidth * (currentPosition / MAX_HEIGHT), 20, 50);
-
 }
 
+/*
 function mouseWheel(event) {
   currentPosition += event.delta;
 
@@ -78,7 +78,7 @@ function mouseWheel(event) {
   // print("currentPosition: " + currentPosition);
   // print("colorNum: " + currentColorNumber);
 
-}
+}*/
 
 function keyTyped() {
   switch (key) {
@@ -95,14 +95,26 @@ function keyTyped() {
 }
 
 function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
-    if (currentColorNumber > 0) {
-      currentColorNumber--;
-    }
-  } else if (keyCode === RIGHT_ARROW) {
-    if (currentColorNumber <= MAX_COLOR_COUNT) {
-      currentColorNumber++;
-    }
+  if (keyCode === LEFT_ARROW || keyCode === BACKSPACE) {
+    prev()
+  } else if (keyCode === RIGHT_ARROW || keyCode === ENTER) {
+    next();
+  }
+}
+
+const prev = () => {
+  if (currentColorNumber <= 0) {
+    currentColorNumber = MAX_COLOR_COUNT - 1;
+  } else {
+    currentColorNumber--;
+  }
+}
+
+const next = () => {
+  if (currentColorNumber >= MAX_COLOR_COUNT - 1) {
+    currentColorNumber = 0;
+  } else {
+    currentColorNumber++;
   }
 }
 
@@ -130,7 +142,7 @@ function touchStarted() {
 
 }
 
-function fadeoutAlpha(limit, currentMills, speed) {
+const fadeoutAlpha = (limit, currentMills, speed) => {
   // console.log(currentMills);
   return 1.0 - (currentMills * speed / limit);
 }
