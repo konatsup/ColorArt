@@ -28,7 +28,6 @@ function setup() {
 
 function draw() {
   colorMode(HSB);
-  print(currentColorNumber * (360 / MAX_COLOR_COUNT));
   fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
   rect(0, 0, displayWidth, displayHeight);
 
@@ -79,6 +78,18 @@ function keyTyped() {
       });
       se1.play();
       break;
+  }
+}
+
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    if (currentColorNumber > 0) {
+      currentColorNumber--;
+    }
+  } else if (keyCode === RIGHT_ARROW) {
+    if (currentColorNumber <= MAX_COLOR_COUNT) {
+      currentColorNumber++;
+    }
   }
 }
 
