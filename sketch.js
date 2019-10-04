@@ -82,6 +82,15 @@ function keyTyped() {
   }
 }
 
+function mousePressed() {
+  rippleList.push({
+    x: mouseX,
+    y: mouseY,
+    radius: 1,
+    fadeCurrentTime: 0
+  });
+  se1.play();
+}
 
 function touchStarted() {
   if (touches.length <= 0) {
