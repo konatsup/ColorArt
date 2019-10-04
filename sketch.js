@@ -1,8 +1,8 @@
 let rectWidth;
 let bgm;
 let diameter = 0;
-// const ROOT_PATH = "http://localhost:8100/";
-const ROOT_PATH = ""; // local server host
+const ROOT_PATH = "http://localhost:8100/";
+// const ROOT_PATH = ""; // local server host
 
 let currentPosition = 0;
 const MAX_HEIGHT = 10000;
@@ -37,8 +37,9 @@ function draw() {
       return;
     }
     ripple.radius += inc;
+    let alpha = 1.0 - (ripple.radius * 2 / MAX_RADIUS);
     strokeWeight(4);
-    stroke(255);
+    stroke(255, alpha);
     noFill();
     ellipse(ripple.x, ripple.y, ripple.radius);
   });
