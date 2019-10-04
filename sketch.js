@@ -63,6 +63,22 @@ function draw() {
 
 }
 
+const getRandomPosition = (min, max) => {
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
+}
+
+const getRandomPositionX = () => {
+  const min = displayWidth / 2 - 500;
+  const max = displayWidth / 2 + 500;
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
+}
+
+const getRandomPositionY = () => {
+  const min = displayHeight / 2 - 300;
+  const max = displayHeight / 2 + 300;
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
+}
+
 /*
 function mouseWheel(event) {
   currentPosition += event.delta;
@@ -84,8 +100,8 @@ function keyTyped() {
   switch (key) {
     case "a":
       rippleList.push({
-        x: mouseX,
-        y: mouseY,
+        x: getRandomPositionX(),
+        y: getRandomPositionY(),
         radius: 1,
         fadeCurrentTime: 0
       });
