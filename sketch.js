@@ -5,7 +5,7 @@ const ROOT_PATH = ""; // local server host
 
 let currentPosition = 0;
 const MAX_HEIGHT = 10000;
-const MAX_COLOR_COUNT = 8;
+const MAX_COLOR_COUNT = 7;
 let currentColorNumber = 0;
 const BASE_SECTION_HEIGHT = MAX_HEIGHT / MAX_COLOR_COUNT;
 const MAX_RADIUS = 2500;
@@ -73,13 +73,14 @@ const colorList = [{
 const colorNumList = [];
 
 
+
 function preload() {
   // bgm = loadSound(ROOT_PATH + "assets/sound/melt.mp3");
   se1 = loadSound(ROOT_PATH + "assets/sound/water.mp3");
 }
 
 function setup() {
-  createCanvas(displayWidth, displayHeight - 100);
+  createCanvas(windowWidth, windowHeight);
   noStroke();
   // bgm.setVolume(0.2);
   // bgm.play();
@@ -106,12 +107,19 @@ function draw() {
   fill(255);
   rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
 
+  fill(colorList[currentColorNumber].r, colorList[currentColorNumber].g, colorList[currentColorNumber].b);
+
+  rect(500, 300, 300, 300);
+
+
   fill(128);
   rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
 
 
   fill(64);
   rect(palletWidth, displayHeight - palletHeight, displayWidth - palletWidth, palletHeight);
+
+  // sinecosineSample();
 
   // rippleList.map((ripple, i) => {
   //   if (ripple.radius >= MAX_RADIUS) {
@@ -148,6 +156,36 @@ function windowResized() {
   background(255, 0, 200);
 }
 
+function sinecosineSample() {
+  background(0);
+
+
+  /*ライトの設定。マウスの位置で光の方向が変化*/
+  var locY = (mouseY / height - 0.5) * (-2);
+  var locX = (mouseX / width - 0.5) * 2;
+
+  ambientLight(100, 80, 80);
+  pointLight(200, 200, 200, locX, locY, 0);
+
+  /*Yを少しずつ回転。*/
+  rotateY(frameCount * 0.0001);
+  //ドラック対応
+  orbitControl();
+
+  for (var j = 0; j < 10; j++) {
+    push();
+    for (var i = 0; i < 100; i++) {
+      translate(sin(frameCount * 0.001 + j) * 200, sin(frameCount * 0.001 + j) * 300, i * 0.1);
+      rotateZ(frameCount * 0.002);
+      push();
+      /*プリミティブの作成*/
+      sphere(2, 10, 100);
+      pop();
+    }
+    pop();
+  }
+}
+
 /*
 function mouseWheel(event) {
   currentPosition += event.delta;
@@ -176,7 +214,26 @@ function keyTyped() {
             });
             se1.play();*/
       break;
+    case "z":
+      currentColorNumber = 0;
+      break;
+    case "x":
+      currentColorNumber = 1;
+      break;
+    case "c":
+      currentColorNumber = 2;
+      break;
+    case "v":
+      currentColorNumber = 3;
+      break;
+    case "b":
+      currentColorNumber = 4;
+      break;
     case "n":
+      currentColorNumber = 5;
+      break;
+    case "m":
+      currentColorNumber = 6;
       break;
   }
 }
