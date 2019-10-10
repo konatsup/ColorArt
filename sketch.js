@@ -1,4 +1,3 @@
-let rectWidth;
 let bgm;
 let diameter = 0;
 // const ROOT_PATH = "http://localhost:8100/";
@@ -15,6 +14,64 @@ let inc = 10;
 const fadeoutLimit = 2.0;
 const centerTextList = ['赤', '橙', '黄', '緑', '水', '青', '紫', '桃'];
 const underTextList = ['Red', 'Orange', 'Yellow', 'Green', 'LightBlue', 'Blue', 'Purple', 'Pink'];
+let flg = false;
+
+let palletHeight = 250;
+let palletWidth = 1000;
+
+const colorList = [{
+    name_ja: '赤',
+    name_en: 'Red',
+    r: 255,
+    g: 0,
+    b: 0
+  },
+  {
+    name_ja: '橙',
+    name_en: 'Orange',
+    r: 255,
+    g: 165,
+    b: 0
+  },
+  {
+    name_ja: '黄',
+    name_en: 'Yellow',
+    r: 255,
+    g: 255,
+    b: 0
+  },
+  {
+    name_ja: '緑',
+    name_en: 'Green',
+    r: 0,
+    g: 255,
+    b: 0
+  },
+  {
+    name_ja: '水',
+    name_en: 'Aqua',
+    r: 0,
+    g: 255,
+    b: 255
+  },
+  {
+    name_ja: '青',
+    name_en: 'Blue',
+    r: 0,
+    g: 0,
+    b: 255
+  },
+  {
+    name_ja: '紫',
+    name_en: 'Purple',
+    r: 255,
+    g: 0,
+    b: 255
+  }
+];
+
+const colorNumList = [];
+
 
 function preload() {
   // bgm = loadSound(ROOT_PATH + "assets/sound/melt.mp3");
@@ -24,42 +81,45 @@ function preload() {
 function setup() {
   createCanvas(displayWidth, displayHeight - 100);
   noStroke();
-  rectWidth = width / 4;
+  // bgm.setVolume(0.2);
   // bgm.play();
+
 }
 
+
 function draw() {
+
+  if (focused === false) {
+    // if (bgm.isPlaying()) {
+    // bgm.pause();
+    // }
+  } else {
+    // if (!bgm.isPlaying()) {
+    //   bgm.play();
+    // }
+  }
+
   colorMode(HSB);
   fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
-  rect(0, 0, displayWidth, displayHeight);
+  rect(0, 0, displayWidth, displayHeight - palletHeight);
 
-  fill(255)
-    // .stroke(0, 100, 100)
-    // .strokeWeight(5)
-    .textSize(200)
-    .textStyle(BOLD)
-    .textAlign(CENTER)
-    .text(centerTextList[currentColorNumber], displayWidth / 2, displayHeight / 2);
+  fill(0, 70, 20);
+  rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
 
-  textSize(80)
-    .textStyle(BOLD)
-    .textAlign(CENTER)
-    .text(underTextList[currentColorNumber], displayWidth / 2, displayHeight / 2 + 110);
+  fill(0, 70, 50);
+  rect(palletWidth, displayHeight - palletHeight, displayWidth - palletWidth, palletHeight);
 
-  rippleList.map((ripple, i) => {
-    if (ripple.radius >= MAX_RADIUS) {
-      rippleList.splice(i, 1);
-      return;
-    }
-    ripple.radius += inc;
-    ripple.fadeCurrentTime++;
-    let alpha = fadeoutAlpha(fadeoutLimit, ripple.fadeCurrentTime / 60, fadeoutLimit);
 
-    strokeWeight(4);
-    stroke(255, alpha);
-    noFill();
-    ellipse(ripple.x, ripple.y, ripple.radius);
-  });
+  // rippleList.map((ripple, i) => {
+  //   if (ripple.radius >= MAX_RADIUS) {
+  //     rippleList.splice(i, 1);
+  //     return;
+  //   }
+  //   ripple.radius += inc;
+  //   ripple.fadeCurrentTime++;
+  //   let alpha = fadeoutAlpha(fadeoutLimit, ripple.fadeCurrentTime / 60, fadeoutLimit);
+
+
 
 }
 
@@ -105,13 +165,15 @@ function mouseWheel(event) {
 function keyTyped() {
   switch (key) {
     case "a":
-      rippleList.push({
-        x: getRandomPositionX(),
-        y: getRandomPositionY(),
-        radius: 1,
-        fadeCurrentTime: 0
-      });
-      se1.play();
+      /*      rippleList.push({
+              x: getRandomPositionX(),
+              y: getRandomPositionY(),
+              radius: 1,
+              fadeCurrentTime: 0
+            });
+            se1.play();*/
+      break;
+    case "n":
       break;
   }
 }
@@ -141,17 +203,17 @@ const next = () => {
 }
 
 function mousePressed() {
-  rippleList.push({
+  /*rippleList.push({
     x: mouseX,
     y: mouseY,
     radius: 1,
     fadeCurrentTime: 0
   });
-  se1.play();
+  se1.play();*/
 }
 
 function touchStarted() {
-  if (touches.length <= 0) {
+  /*if (touches.length <= 0) {
     return;
   }
   rippleList.push({
@@ -160,7 +222,7 @@ function touchStarted() {
     radius: 1,
     fadeCurrentTime: 0
   });
-  se1.play();
+  se1.play();*/
 
 }
 
