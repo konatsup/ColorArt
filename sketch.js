@@ -22,56 +22,81 @@ let palletWidth = 1000;
 const colorList = [{
     name_ja: '赤',
     name_en: 'Red',
-    r: 255,
-    g: 0,
-    b: 0
+    rgb: {
+      r: 255,
+      g: 0,
+      b: 0
+    }
   },
   {
     name_ja: '橙',
     name_en: 'Orange',
-    r: 255,
-    g: 165,
-    b: 0
+    rgb: {
+
+      r: 255,
+      g: 165,
+      b: 0
+    }
   },
   {
     name_ja: '黄',
     name_en: 'Yellow',
-    r: 255,
-    g: 255,
-    b: 0
+    rgb: {
+      r: 255,
+      g: 255,
+      b: 0
+    }
   },
   {
     name_ja: '緑',
     name_en: 'Green',
-    r: 0,
-    g: 255,
-    b: 0
+    rgb: {
+      r: 0,
+      g: 255,
+      b: 0
+    }
   },
   {
     name_ja: '水',
     name_en: 'Aqua',
-    r: 0,
-    g: 255,
-    b: 255
+    rgb: {
+      r: 0,
+      g: 255,
+      b: 255
+    }
   },
   {
     name_ja: '青',
     name_en: 'Blue',
-    r: 0,
-    g: 0,
-    b: 255
+    rgb: {
+      r: 0,
+      g: 0,
+      b: 255
+    }
   },
   {
     name_ja: '紫',
     name_en: 'Purple',
-    r: 255,
-    g: 0,
-    b: 255
+    rgb: {
+      r: 255,
+      g: 0,
+      b: 255
+    }
   }
 ];
 
-const colorNumList = [];
+const templateColorId = [
+  [
 
+  ]
+]
+
+const N = 255;
+const L = 255;
+const SCALE = 3.8;
+const colorIdList = [];
+let useColorCount = 1;
+const maxUseColorCount = 9;
 
 
 function preload() {
@@ -79,11 +104,31 @@ function preload() {
   se1 = loadSound(ROOT_PATH + "assets/sound/water.mp3");
 }
 
+let circle;
+
 function setup() {
+  // createCanvas(windowWidth, windowHeight, WEBGL);
   createCanvas(windowWidth, windowHeight);
+
   noStroke();
+  // noLoop();
   // bgm.setVolume(0.2);
   // bgm.play();
+
+  circle = {
+    x: width / 2,
+    y: -50,
+    r: 50
+  }
+
+  // animate it to the middle of the screen
+  TweenMax.to(circle, 2, {
+    y: height / 2,
+    r: 200,
+    delay: 2,
+    ease: Elastic.easeOut,
+    onComplete: finished
+  });
 
 }
 
@@ -99,6 +144,9 @@ function draw() {
     //   bgm.play();
     // }
   }
+  background(30);
+  fill(255);
+  ellipse(circle.x, circle.y, circle.r);
 
   colorMode(RGB);
   // fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
@@ -107,18 +155,26 @@ function draw() {
   fill(255);
   rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
 
-  fill(colorList[currentColorNumber].r, colorList[currentColorNumber].g, colorList[currentColorNumber].b);
+  fill(mapObjectToColor(colorList[currentColorNumber].rgb));
 
   rect(500, 300, 300, 300);
 
+  // color pallet
+  fill(128)
+    .rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
 
-  fill(128);
-  rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
+
+  // for (let i = 0; i < maxUseColorCount - useColorCount; i++) {
+  //   fill(mapObjectToColor(colorList[colorNumList[i]].rgb))
+  //     .rect()
+  // }
+
+  // color info
+  fill(64)
+    .rect(palletWidth, displayHeight - palletHeight, displayWidth - palletWidth, palletHeight);
 
 
-  fill(64);
-  rect(palletWidth, displayHeight - palletHeight, displayWidth - palletWidth, palletHeight);
-
+  // fractral();
   // sinecosineSample();
 
   // rippleList.map((ripple, i) => {
@@ -130,8 +186,10 @@ function draw() {
   //   ripple.fadeCurrentTime++;
   //   let alpha = fadeoutAlpha(fadeoutLimit, ripple.fadeCurrentTime / 60, fadeoutLimit);
 
+}
 
-
+function finished() {
+  console.log("animation finished")
 }
 
 const getRandomPosition = (min, max) => {
@@ -150,6 +208,10 @@ const getRandomPositionY = () => {
   return Math.floor(Math.random() * (max + 1 - min)) + min;
 }
 
+const mapObjectToColor = obj => {
+  return color(obj.r, obj.g, obj.b);
+}
+
 function windowResized() {
   // centerCanvas();
   resizeCanvas(displayWidth, displayHeight);
@@ -158,7 +220,6 @@ function windowResized() {
 
 function sinecosineSample() {
   background(0);
-
 
   /*ライトの設定。マウスの位置で光の方向が変化*/
   var locY = (mouseY / height - 0.5) * (-2);
@@ -205,6 +266,36 @@ function mouseWheel(event) {
 
 function keyTyped() {
   switch (key) {
+    case "1":
+      useColorCount = 1;
+      break;
+    case "2":
+      useColorCount = 2;
+      break;
+    case "3":
+      useColorCount = 3;
+      break;
+
+    case "4":
+      useColorCount = 4;
+      break;
+    case "5":
+      useColorCount = 5;
+      break;
+    case "6":
+      useColorCount = 6;
+      break;
+    case "7":
+      useColorCount = 7;
+      break;
+    case "8":
+      useColorCount = 8;
+      break;
+    case "9":
+      useColorCount = 9;
+      break;
+
+
     case "a":
       /*      rippleList.push({
               x: getRandomPositionX(),
