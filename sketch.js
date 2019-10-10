@@ -99,16 +99,19 @@ function draw() {
     // }
   }
 
-  colorMode(HSB);
-  fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
-  rect(0, 0, displayWidth, displayHeight - palletHeight);
+  colorMode(RGB);
+  // fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
+  // rect(0, 0, displayWidth, displayHeight - palletHeight);
 
-  fill(0, 70, 20);
+  fill(255);
   rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
 
-  fill(0, 70, 50);
-  rect(palletWidth, displayHeight - palletHeight, displayWidth - palletWidth, palletHeight);
+  fill(128);
+  rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
 
+
+  fill(64);
+  rect(palletWidth, displayHeight - palletHeight, displayWidth - palletWidth, palletHeight);
 
   // rippleList.map((ripple, i) => {
   //   if (ripple.radius >= MAX_RADIUS) {
@@ -140,7 +143,7 @@ const getRandomPositionY = () => {
 }
 
 function windowResized() {
-  centerCanvas();
+  // centerCanvas();
   resizeCanvas(displayWidth, displayHeight);
   background(255, 0, 200);
 }
