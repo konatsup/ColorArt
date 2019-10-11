@@ -172,10 +172,6 @@ function draw() {
   fill(64)
     .rect(palletWidth, displayHeight - palletHeight, displayWidth - palletWidth, palletHeight);
 
-
-  // fractral();
-  // sinecosineSample();
-
   // rippleList.map((ripple, i) => {
   //   if (ripple.radius >= MAX_RADIUS) {
   //     rippleList.splice(i, 1);
@@ -216,23 +212,6 @@ function windowResized() {
   resizeCanvas(displayWidth, displayHeight);
   background(255, 0, 200);
 }
-
-/*
-function mouseWheel(event) {
-  currentPosition += event.delta;
-
-  if (currentPosition > MAX_HEIGHT) {
-    currentPosition = MAX_HEIGHT;
-  }
-
-  if (currentPosition < 0) {
-    currentPosition = 0;
-  }
-  currentColorNumber = Math.floor(currentPosition / BASE_SECTION_HEIGHT);
-  // print("currentPosition: " + currentPosition);
-  // print("colorNum: " + currentColorNumber);
-
-}*/
 
 
 function keyTyped() {
