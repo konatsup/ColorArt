@@ -140,9 +140,9 @@ function draw() {
     //   bgm.play();
     // }
   }
-  background(30);
-  fill(255);
-  ellipse(circle.x, circle.y, circle.r);
+  background(255, 202, 0);
+  fill(0)
+    .ellipse(circle.x, circle.y, circle.r);
 
   colorMode(RGB);
   // fill(currentColorNumber * (360 / MAX_COLOR_COUNT), 70, 100);
