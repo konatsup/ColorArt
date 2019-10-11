@@ -19,6 +19,19 @@ let flg = false;
 let palletHeight = 250;
 let palletWidth = 1000;
 
+let circle = {
+  x: 500,
+  y: 150,
+  r: 300
+}
+
+let circle2 = {
+  x: 500,
+  y: 300,
+  r: 200
+};
+
+
 const colorList = [{
     name_ja: '赤',
     name_en: 'Red',
@@ -91,9 +104,6 @@ const templateColorId = [
   ]
 ]
 
-const N = 255;
-const L = 255;
-const SCALE = 3.8;
 const colorIdList = [];
 let useColorCount = 1;
 const maxUseColorCount = 9;
@@ -101,34 +111,20 @@ const maxUseColorCount = 9;
 
 function preload() {
   // bgm = loadSound(ROOT_PATH + "assets/sound/melt.mp3");
-  se1 = loadSound(ROOT_PATH + "assets/sound/water.mp3");
+  // se1 = loadSound(ROOT_PATH + "assets/sound/water.mp3");
 }
 
-let circle;
 
 function setup() {
   // createCanvas(windowWidth, windowHeight, WEBGL);
   createCanvas(windowWidth, windowHeight);
 
   noStroke();
+  circle1Motion1();
+  circle2Motion1();
   // noLoop();
   // bgm.setVolume(0.2);
   // bgm.play();
-
-  circle = {
-    x: width / 2,
-    y: -50,
-    r: 50
-  }
-
-  // animate it to the middle of the screen
-  TweenMax.to(circle, 2, {
-    y: height / 2,
-    r: 200,
-    delay: 2,
-    ease: Elastic.easeOut,
-    onComplete: finished
-  });
 
 }
 
@@ -155,13 +151,16 @@ function draw() {
   fill(255);
   rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
 
-  fill(mapObjectToColor(colorList[currentColorNumber].rgb));
+  // fill(mapObjectToColor(colorList[currentColorNumber].rgb));
 
-  rect(500, 300, 300, 300);
+  // rect(500, 300, 300, 300);
 
   // color pallet
   fill(128)
     .rect(0, displayHeight - palletHeight, palletWidth, palletHeight);
+
+  fill(mapObjectToColor(colorList[currentColorNumber].rgb))
+    .ellipse(circle2.x, circle2.y, circle2.r);
 
 
   // for (let i = 0; i < maxUseColorCount - useColorCount; i++) {
@@ -218,35 +217,6 @@ function windowResized() {
   background(255, 0, 200);
 }
 
-function sinecosineSample() {
-  background(0);
-
-  /*ライトの設定。マウスの位置で光の方向が変化*/
-  var locY = (mouseY / height - 0.5) * (-2);
-  var locX = (mouseX / width - 0.5) * 2;
-
-  ambientLight(100, 80, 80);
-  pointLight(200, 200, 200, locX, locY, 0);
-
-  /*Yを少しずつ回転。*/
-  rotateY(frameCount * 0.0001);
-  //ドラック対応
-  orbitControl();
-
-  for (var j = 0; j < 10; j++) {
-    push();
-    for (var i = 0; i < 100; i++) {
-      translate(sin(frameCount * 0.001 + j) * 200, sin(frameCount * 0.001 + j) * 300, i * 0.1);
-      rotateZ(frameCount * 0.002);
-      push();
-      /*プリミティブの作成*/
-      sphere(2, 10, 100);
-      pop();
-    }
-    pop();
-  }
-}
-
 /*
 function mouseWheel(event) {
   currentPosition += event.delta;
@@ -263,6 +233,7 @@ function mouseWheel(event) {
   // print("colorNum: " + currentColorNumber);
 
 }*/
+
 
 function keyTyped() {
   switch (key) {
@@ -305,6 +276,7 @@ function keyTyped() {
             });
             se1.play();*/
       break;
+
     case "z":
       currentColorNumber = 0;
       break;
@@ -327,6 +299,38 @@ function keyTyped() {
       currentColorNumber = 6;
       break;
   }
+}
+
+const circle1Motion1 = () => {
+  TweenMax.to(circle, 1, {
+    y: 300,
+    ease: Circ.easeInOut,
+    onComplete: circle1Motion2
+  });
+}
+
+const circle1Motion2 = () => {
+  TweenMax.to(circle, 1, {
+    y: 150,
+    ease: Circ.easeInOut,
+    onComplete: circle1Motion1
+  });
+}
+
+const circle2Motion1 = () => {
+  TweenMax.to(circle2, 1, {
+    y: 150,
+    ease: Circ.easeInOut,
+    onComplete: circle2Motion2
+  });
+}
+
+const circle2Motion2 = () => {
+  TweenMax.to(circle2, 1, {
+    y: 300,
+    ease: Circ.easeInOut,
+    onComplete: circle2Motion1
+  });
 }
 
 function keyPressed() {
