@@ -6,8 +6,7 @@ let top1 = 120;
 let bottom1 = 270;
 
 let colorList = [
-  [
-    {
+  [{
       r: 240,
       g: 19,
       b: 77
@@ -28,8 +27,7 @@ let colorList = [
       b: 193
     }
   ],
-  [
-    {
+  [{
       r: 236,
       g: 252,
       b: 255
@@ -50,8 +48,7 @@ let colorList = [
       b: 255
     }
   ],
-  [
-    {
+  [{
       r: 255,
       g: 182,
       b: 185
@@ -72,8 +69,7 @@ let colorList = [
       b: 209
     }
   ],
-  [
-    {
+  [{
       r: 150,
       g: 206,
       b: 180
@@ -94,8 +90,7 @@ let colorList = [
       b: 96
     }
   ],
-  [
-    {
+  [{
       r: 5,
       g: 68,
       b: 92
@@ -116,8 +111,7 @@ let colorList = [
       b: 0
     }
   ],
-  [
-    {
+  [{
       r: 19,
       g: 51,
       b: 76
@@ -138,8 +132,7 @@ let colorList = [
       b: 0
     }
   ],
-  [
-    {
+  [{
       r: 46,
       g: 148,
       b: 185
@@ -160,8 +153,7 @@ let colorList = [
       b: 101
     }
   ],
-  [
-    {
+  [{
       r: 174,
       g: 184,
       b: 195
@@ -182,8 +174,7 @@ let colorList = [
       b: 137
     }
   ],
-  [
-    {
+  [{
       r: 0,
       g: 223,
       b: 252
@@ -204,8 +195,7 @@ let colorList = [
       b: 56
     }
   ],
-  [
-    {
+  [{
       r: 251,
       g: 245,
       b: 121
@@ -226,8 +216,7 @@ let colorList = [
       b: 115
     }
   ],
-  [
-    {
+  [{
       r: 244,
       g: 240,
       b: 230
@@ -248,8 +237,7 @@ let colorList = [
       b: 168
     }
   ],
-  [
-    {
+  [{
       r: 254,
       g: 244,
       b: 169
@@ -270,8 +258,7 @@ let colorList = [
       b: 224
     }
   ],
-  [
-    {
+  [{
       r: 23,
       g: 34,
       b: 59
@@ -292,8 +279,7 @@ let colorList = [
       b: 104
     }
   ],
-  [
-    {
+  [{
       r: 212,
       g: 237,
       b: 244
@@ -314,8 +300,7 @@ let colorList = [
       b: 194
     }
   ],
-  [
-    {
+  [{
       r: 8,
       g: 217,
       b: 214
@@ -336,8 +321,7 @@ let colorList = [
       b: 234
     }
   ],
-  [
-    {
+  [{
       r: 127,
       g: 149,
       b: 209
@@ -378,7 +362,19 @@ const mapObjectToColor = obj => {
 };
 
 function setup() {
-  createCanvas(670, 520);
+  window.addEventListener("touchstart", function (event) {
+    event.preventDefault();
+  }, {
+    passive: false
+  });
+  window.addEventListener("touchmove", function (event) {
+    event.preventDefault();
+  }, {
+    passive: false
+  });
+
+  createCanvas(windowWidth, windowHeight);
+  // createCanvas(670, 520);
   MAX_COLOR_COUNT = colorList.length;
 
   img = createGraphics(width, height);
@@ -404,11 +400,11 @@ function draw() {
 
   let textColor =
     backgroundColor.levels[0] * 0.299 +
-      backgroundColor.levels[1] * 0.587 +
-      backgroundColor.levels[2] * 0.114 <
-    135
-      ? 255
-      : 60;
+    backgroundColor.levels[1] * 0.587 +
+    backgroundColor.levels[2] * 0.114 <
+    135 ?
+    255 :
+    60;
   background(backgroundColor);
   noStroke();
   img.background(mapObjectToColor(colorList[palletNum][current + 1]));
