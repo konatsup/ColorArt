@@ -395,7 +395,7 @@ let current = 0;
 function draw() {
   if (pDeviceOrientation !== undefined && pDeviceOrientation !== deviceOrientation) {
     noCanvas();
-    createCanvas(window.innerWidth, windowHeight);
+    createCanvas(windowWidth, windowHeight);
     next();
   }
   pDeviceOrientation = deviceOrientation;
