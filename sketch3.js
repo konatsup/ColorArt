@@ -2,6 +2,9 @@ var img;
 var imgClone;
 
 var mk;
+let top1 = 120;
+let bottom1 = 270;
+
 
 let colorList = [{
     r: 240,
@@ -26,14 +29,14 @@ let colorList = [{
 ];
 let circle = {
   x: 150,
-  y: 100,
+  y: top1,
   r: 200
 }
 
 let circle2 = {
   x: 150,
-  y: 300,
-  r: 120
+  y: bottom1,
+  r: 150
 };
 
 
@@ -96,7 +99,7 @@ function keyPressed() {
 
 const circle1Motion1 = () => {
   TweenMax.to(circle, 1, {
-    y: 300,
+    y: bottom1,
     ease: Circ.easeInOut,
     onComplete: circle1Motion2
   });
@@ -104,7 +107,7 @@ const circle1Motion1 = () => {
 
 const circle1Motion2 = () => {
   TweenMax.to(circle, 1, {
-    y: 100,
+    y: top1,
     ease: Circ.easeInOut,
     onComplete: circle1Motion1
   });
@@ -112,7 +115,7 @@ const circle1Motion2 = () => {
 
 const circle2Motion1 = () => {
   TweenMax.to(circle2, 1, {
-    y: 100,
+    y: top1,
     ease: Circ.easeInOut,
     onComplete: circle2Motion2
   });
@@ -120,7 +123,7 @@ const circle2Motion1 = () => {
 
 const circle2Motion2 = () => {
   TweenMax.to(circle2, 1, {
-    y: 300,
+    y: bottom1,
     ease: Circ.easeInOut,
     onComplete: circle2Motion1
   });
