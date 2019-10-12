@@ -38,6 +38,7 @@ function setup() {
   // img.fill(255).ellipse(100, 100, 100, 100);
 
   mk = createGraphics(width, height);
+
   // mk.ellipse(100, 150, 200, 200);
 
   // (imgClone = img.get()).mask(mk.get());
@@ -70,20 +71,19 @@ function draw() {
 
   img.clear();
   mk.clear();
+  textSize(24);
+  fill(255).text('Enterを押すと色が変わります', 200, 380);
 
 
 }
 
-function keyTyped() {
-  switch (key) {
-    case "a":
-      console.log("a");
-      for (var i = colorList.length - 1; i > 0; i--) {
-        var r = Math.floor(Math.random() * (i + 1));
-        var tmp = colorList[i];
-        colorList[i] = colorList[r];
-        colorList[r] = tmp;
-      }
-      break;
+function keyPressed() {
+  if (keyCode === ENTER) {
+    for (var i = colorList.length - 1; i > 0; i--) {
+      var r = Math.floor(Math.random() * (i + 1));
+      var tmp = colorList[i];
+      colorList[i] = colorList[r];
+      colorList[r] = tmp;
+    }
   }
 }
