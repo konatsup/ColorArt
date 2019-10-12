@@ -172,14 +172,16 @@ let circle2 = {
   y: bottom1,
   r: 150
 };
-
+let palletNum = 0;
+let MAX_COLOR_COUNT;
 
 const mapObjectToColor = obj => {
   return color(obj.r, obj.g, obj.b);
-}
+};
 
 function setup() {
-  createCanvas(650, 450);
+  createCanvas(670, 520);
+  MAX_COLOR_COUNT = colorList.length;
 
   img = createGraphics(width, height);
   img.noStroke();
@@ -200,14 +202,29 @@ let a = 1;
 let current = 0;
 
 function draw() {
-  background(mapObjectToColor(colorList[current + 2]));
+  let backgroundColor = mapObjectToColor(colorList[palletNum][current + 2]);
+
+  let textColor =
+    backgroundColor.levels[0] * 0.299 +
+      backgroundColor.levels[1] * 0.587 +
+      backgroundColor.levels[2] * 0.114 <
+    135
+      ? 255
+      : 60;
+  background(backgroundColor);
   noStroke();
-  img.background(mapObjectToColor(colorList[current + 1]));
-  img.fill(mapObjectToColor(colorList[current])).ellipse(circle2.x, circle2.y, circle2.r);
+  img.background(mapObjectToColor(colorList[palletNum][current + 1]));
+  img
+    .fill(mapObjectToColor(colorList[palletNum][current]))
+    .ellipse(circle2.x, circle2.y, circle2.r);
 
   mk.ellipse(circle.x, circle.y, circle.r);
 
-  fill(mapObjectToColor(colorList[current + 3])).ellipse(circle2.x, circle2.y, circle2.r);
+  fill(mapObjectToColor(colorList[palletNum][current + 3])).ellipse(
+    circle2.x,
+    circle2.y,
+    circle2.r
+  );
 
   (imgClone = img.get()).mask(mk.get());
   image(imgClone, 0, 0);
@@ -215,21 +232,42 @@ function draw() {
   img.clear();
   mk.clear();
   textSize(24);
-  fill(255).text('Enterを押すと色が変わります', 280, 420);
-
-
+  fill(textColor).text("Enterキー: 色の組み合わせを変更", 250, 420);
+  fill(textColor).text("⬅︎ 左矢印キー: 前の配色", 250, 450);
+  fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
 }
 
 function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    prev();
+  } else if (keyCode === RIGHT_ARROW) {
+    next();
+  }
   if (keyCode === ENTER) {
-    for (var i = colorList.length - 1; i > 0; i--) {
+    for (var i = colorList[palletNum].length - 1; i > 0; i--) {
       var r = Math.floor(Math.random() * (i + 1));
-      var tmp = colorList[i];
-      colorList[i] = colorList[r];
-      colorList[r] = tmp;
+      var tmp = colorList[palletNum][i];
+      colorList[palletNum][i] = colorList[palletNum][r];
+      colorList[palletNum][r] = tmp;
     }
   }
 }
+
+const prev = () => {
+  if (palletNum <= 0) {
+    palletNum = MAX_COLOR_COUNT - 1;
+  } else {
+    palletNum--;
+  }
+};
+
+const next = () => {
+  if (palletNum >= MAX_COLOR_COUNT - 1) {
+    palletNum = 0;
+  } else {
+    palletNum++;
+  }
+};
 
 const circle1Motion1 = () => {
   TweenMax.to(circle, 1, {
@@ -237,7 +275,7 @@ const circle1Motion1 = () => {
     ease: Circ.easeInOut,
     onComplete: circle1Motion2
   });
-}
+};
 
 const circle1Motion2 = () => {
   TweenMax.to(circle, 1, {
@@ -245,7 +283,7 @@ const circle1Motion2 = () => {
     ease: Circ.easeInOut,
     onComplete: circle1Motion1
   });
-}
+};
 
 const circle2Motion1 = () => {
   TweenMax.to(circle2, 1, {
@@ -253,7 +291,7 @@ const circle2Motion1 = () => {
     ease: Circ.easeInOut,
     onComplete: circle2Motion2
   });
-}
+};
 
 const circle2Motion2 = () => {
   TweenMax.to(circle2, 1, {
@@ -261,4 +299,4 @@ const circle2Motion2 = () => {
     ease: Circ.easeInOut,
     onComplete: circle2Motion1
   });
-}
+};
