@@ -356,6 +356,7 @@ let circle2 = {
 };
 let palletNum = 0;
 let MAX_COLOR_COUNT;
+let pDeviceOrientation;
 
 const mapObjectToColor = obj => {
   return color(obj.r, obj.g, obj.b);
@@ -379,16 +380,12 @@ function setup() {
 
   img = createGraphics(width, height);
   img.noStroke();
-  // img.background(0);
-  // img.fill(255).ellipse(100, 100, 100, 100);
 
   mk = createGraphics(width, height);
   circle1Motion1();
   circle2Motion1();
 
-  // mk.ellipse(100, 150, 200, 200);
-
-  // (imgClone = img.get()).mask(mk.get());
+  pDeviceOrientation = deviceOrientation;
 }
 
 let count = 0;
@@ -396,6 +393,13 @@ let a = 1;
 let current = 0;
 
 function draw() {
+  if (pDeviceOrientation !== undefined && pDeviceOrientation !== deviceOrientation) {
+    noCanvas();
+    createCanvas(window.innerWidth, windowHeight);
+    next();
+  }
+  pDeviceOrientation = deviceOrientation;
+
   let backgroundColor = mapObjectToColor(colorList[palletNum][current + 2]);
 
   let textColor =
