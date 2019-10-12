@@ -24,13 +24,25 @@ let colorList = [{
     b: 193
   }
 ];
+let circle = {
+  x: 150,
+  y: 100,
+  r: 200
+}
+
+let circle2 = {
+  x: 150,
+  y: 300,
+  r: 120
+};
+
 
 const mapObjectToColor = obj => {
   return color(obj.r, obj.g, obj.b);
 }
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(650, 450);
 
   img = createGraphics(width, height);
   img.noStroke();
@@ -38,6 +50,8 @@ function setup() {
   // img.fill(255).ellipse(100, 100, 100, 100);
 
   mk = createGraphics(width, height);
+  circle1Motion1();
+  circle2Motion1();
 
   // mk.ellipse(100, 150, 200, 200);
 
@@ -52,19 +66,11 @@ function draw() {
   background(mapObjectToColor(colorList[current + 2]));
   noStroke();
   img.background(mapObjectToColor(colorList[current + 1]));
-  img.fill(mapObjectToColor(colorList[current])).ellipse(100, Math.abs(200 - count), 120, 120);
+  img.fill(mapObjectToColor(colorList[current])).ellipse(circle2.x, circle2.y, circle2.r);
 
-  mk.ellipse(100, count, 200, 200);
+  mk.ellipse(circle.x, circle.y, circle.r);
 
-  fill(mapObjectToColor(colorList[current + 3])).ellipse(100, Math.abs(200 - count), 120, 120);
-  // fill(mapObjectToColor(colorList[current])).ellipse(100, count, 200, 200);
-
-  if (count > 200) {
-    a = -1;
-  } else if (count < 0) {
-    a = 1;
-  }
-  count += a;
+  fill(mapObjectToColor(colorList[current + 3])).ellipse(circle2.x, circle2.y, circle2.r);
 
   (imgClone = img.get()).mask(mk.get());
   image(imgClone, 0, 0);
@@ -72,7 +78,7 @@ function draw() {
   img.clear();
   mk.clear();
   textSize(24);
-  fill(255).text('Enterを押すと色が変わります', 200, 380);
+  fill(255).text('Enterを押すと色が変わります', 280, 420);
 
 
 }
@@ -86,4 +92,36 @@ function keyPressed() {
       colorList[r] = tmp;
     }
   }
+}
+
+const circle1Motion1 = () => {
+  TweenMax.to(circle, 1, {
+    y: 300,
+    ease: Circ.easeInOut,
+    onComplete: circle1Motion2
+  });
+}
+
+const circle1Motion2 = () => {
+  TweenMax.to(circle, 1, {
+    y: 100,
+    ease: Circ.easeInOut,
+    onComplete: circle1Motion1
+  });
+}
+
+const circle2Motion1 = () => {
+  TweenMax.to(circle2, 1, {
+    y: 100,
+    ease: Circ.easeInOut,
+    onComplete: circle2Motion2
+  });
+}
+
+const circle2Motion2 = () => {
+  TweenMax.to(circle2, 1, {
+    y: 300,
+    ease: Circ.easeInOut,
+    onComplete: circle2Motion1
+  });
 }
