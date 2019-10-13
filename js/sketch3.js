@@ -1,6 +1,6 @@
 let img;
 let imgClone;
-let msg;
+let msg = "swiped status";
 let mk;
 let top1 = 120;
 let bottom1 = 270;
@@ -420,6 +420,8 @@ function setup() {
 }
 
 function draw() {
+  console.log(pDeviceOrientation);
+
   if (pDeviceOrientation !== undefined && pDeviceOrientation !== deviceOrientation) {
     noCanvas();
     createCanvas(windowWidth, windowHeight);
@@ -464,6 +466,7 @@ function draw() {
   fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
 
   fill(textColor).text(msg, windowWidth / 2, windowHeight - 150);
+  fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
 
 
   push();
