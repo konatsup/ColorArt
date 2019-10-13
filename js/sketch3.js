@@ -493,8 +493,7 @@ function keyPressed() {
     prev();
   } else if (keyCode === RIGHT_ARROW) {
     next();
-  }
-  if (keyCode === ENTER) {
+  } else if (keyCode === ENTER) {
     sortByRandom();
   }
 }
