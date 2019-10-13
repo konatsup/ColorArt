@@ -345,6 +345,7 @@ let mk;
 let top1 = 120;
 let bottom1 = 270;
 let swipeMsg = {
+  // message: "⬅︎ Swipe to change the color ➡︎",
   message: "⬅︎ 左右にスワイプすると配色が変わります ➡︎",
   a: 255
 }
@@ -374,6 +375,41 @@ let current = 0;
 let sizeText = "Width : Height";
 
 const iconWidth = 100;
+
+let monster;
+// center point
+let centerX = 0.0,
+  centerY = 0.0;
+
+let radius = 50,
+  rotAngle = -45;
+let accelX = 0.0,
+  accelY = 0.0;
+let deltaX = 0.0,
+  deltaY = 0.0;
+let springing = 0.0009,
+  damping = 0.98;
+
+//corner nodes
+let nodes = 25;
+
+let boundPower = 0.5;
+
+//zero fill arrays
+let nodeStartX = [];
+let nodeStartY = [];
+let nodeX = [];
+let nodeY = [];
+let angle = [];
+let frequency = [];
+
+// soft-body dynamics
+let organicConstant = 1.0;
+
+let node2StartX = [];
+let node2StartY = [];
+let node2X = [];
+let node2Y = [];
 
 function preload() {
   updateIcon = loadImage('assets/img/update8.png');
@@ -413,6 +449,13 @@ function setup() {
     w: iconWidth,
     h: iconWidth
   }
+  monster = {
+    image: updateIcon,
+    x: windowWidth / 2,
+    y: windowHeight / 2,
+    w: 150,
+    h: 200
+  }
 
   sizeText = windowWidth + " : " + windowHeight;
   // createCanvas(670, 520);
@@ -427,6 +470,26 @@ function setup() {
   fadeInInitMessage();
 
   pDeviceOrientation = deviceOrientation;
+
+  //center shape in window
+  centerX = width / 2;
+  centerY = height / 2;
+
+  //initialize arrays to 0
+  for (let i = 0; i < nodes; i++) {
+    nodeStartX[i] = 0;
+    nodeStartY[i] = 0;
+    nodeY[i] = 0;
+    nodeY[i] = 0;
+    angle[i] = 0;
+  }
+
+  // iniitalize frequencies for corner nodes
+  for (let i = 0; i < nodes; i++) {
+    frequency[i] = random(5, 12);
+  }
+  noStroke();
+  // frameRate(30);
 }
 
 function draw() {
@@ -447,7 +510,6 @@ function draw() {
     255 :
     60;
   background(backgroundColor);
-  noStroke();
   img.background(mapObjectToColor(colorList[palletNum][current + 1]));
   img
     .fill(mapObjectToColor(colorList[palletNum][current]))
@@ -489,6 +551,10 @@ function draw() {
   image(updateButton.image, updateButton.x, updateButton.y, updateButton.w, updateButton.h);
   pop();
 
+
+  // うみぼうず
+  drawShape();
+  moveShape();
 
 }
 
@@ -621,3 +687,181 @@ const fadeOutInitMessage = () => {
     onComplete: () => {}
   });
 };
+
+// function draw() {
+//   //fade background
+//   fill(0, 100);
+//   rect(0, 0, width, height);
+
+// }
+var array = [];
+
+function drawShape() {
+  //  calculate node  starting locations
+  for (let i = 0; i < nodes; i++) {
+    nodeStartX[i] = centerX + cos(radians(rotAngle)) * radius;
+    nodeStartY[i] = centerY + sin(radians(rotAngle)) * radius * 1.9;
+    rotAngle += 360.0 / nodes;
+  }
+
+
+  node2StartX[0] = centerX - radius;
+  node2StartX[1] = centerX - radius * 0.5;
+  node2StartX[2] = centerX;
+  node2StartX[3] = centerX + radius * 0.5;
+  node2StartX[4] = centerX + radius;
+  node2StartX[5] = centerX + radius;
+  node2StartX[6] = centerX;
+  node2StartX[7] = centerX - radius;
+  node2StartX[8] = centerX - radius;
+  node2StartX[9] = centerX - radius * 0.5;
+  node2StartX[10] = centerX;
+
+
+  node2StartY[0] = centerY + radius * 2;
+  node2StartY[1] = centerY + radius * 2.2;
+  node2StartY[2] = centerY + radius * 2.2;
+  node2StartY[3] = centerY + radius * 2.2;
+  node2StartY[4] = centerY + radius * 2;
+  node2StartY[5] = centerY - radius * 0;
+  node2StartY[6] = centerY - radius * 0.2;
+  node2StartY[7] = centerY - radius * 0;
+  node2StartY[8] = centerY + radius * 2;
+  node2StartY[9] = centerY + radius * 2.2;
+  node2StartY[10] = centerY + radius * 2.2;
+
+
+  /*
+    nodeStartX[0] = centerX - radius;
+    nodeStartX[1] = centerX;
+    nodeStartX[2] = centerX + radius;
+    nodeStartX[3] = centerX + radius / 1.5;
+    nodeStartX[4] = centerX + radius * divSqrt2;
+    nodeStartX[5] = centerX + radius;
+    nodeStartX[6] = centerX + radius * divSqrt2;
+    nodeStartX[7] = centerX;
+    nodeStartX[8] = centerX - radius * divSqrt2;
+    nodeStartX[9] = centerX - radius;
+    nodeStartX[10] = centerX - radius * divSqrt2;
+
+    nodeStartX[11] = centerX - radius / 1.5;
+    nodeStartX[12] = centerX - radius;
+    nodeStartX[13] = centerX;
+
+
+    nodeStartY[0] = centerY + radius * monsterHeight;
+    nodeStartY[1] = centerY + radius * monsterHeight;
+    nodeStartY[2] = centerY + radius * monsterHeight;
+    nodeStartY[3] = centerY + radius * monsterHeight * 0.8;
+    nodeStartY[4] = centerY + radius / 1.2;
+    nodeStartY[5] = centerY;
+    nodeStartY[6] = centerY - radius / 1.2;
+    nodeStartY[7] = centerY - radius;
+    nodeStartY[8] = centerY - radius / 1.2;
+    nodeStartY[9] = centerY;
+    nodeStartY[10] = centerY + radius / 1.2;
+
+    nodeStartY[11] = centerY + radius * monsterHeight * 0.8;
+    nodeStartY[12] = centerY + radius * monsterHeight;
+    nodeStartY[13] = centerY + radius * monsterHeight;
+  */
+
+
+  // for (let i = 4; i < 11; i++) {
+  //   nodeStartX[i] = centerX + cos(radians(rotAngle)) * radius;
+  //   nodeStartY[i] = centerY + sin(radians(rotAngle)) * radius;
+  //   // console.log(cos(radians(rotAngle)));
+  //   rotAngle += 360 / 8;
+  //   console.log(rotAngle)
+  // }
+
+
+  // array = [];
+  // for (let i = 0; i < nodes; i++) {
+  //   array.push({
+  //     x: node2StartX[i] - centerX,
+  //     y: node2StartY[i] - centerY
+  //   })
+  // }
+  // console.log(array);
+
+  // draw polygon
+  curveTightness(organicConstant);
+  fill(mapObjectToColor(colorList[palletNum][current]));
+  // 上半身
+  beginShape();
+  for (let i = 0; i < nodes; i++) {
+    curveVertex(nodeX[i], nodeY[i]);
+  }
+  for (let i = 0; i < nodes - 1; i++) {
+    curveVertex(nodeX[i], nodeY[i]);
+  }
+
+  endShape(CLOSE);
+
+  // 下半身
+  beginShape();
+  const len = node2StartX.length;
+  for (let i = 0; i < len; i++) {
+    curveVertex(node2X[i], node2Y[i]);
+  }
+  for (let i = 0; i < len - 1; i++) {
+    curveVertex(node2X[i], node2Y[i]);
+  }
+  endShape(CLOSE);
+  fill(255).ellipse(centerX - radius / 3, centerY - radius / 2, 20);
+  fill(0).ellipse(centerX - radius / 3 + clamp((mouseX - centerX) / 100, -4, 4), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), 10);
+
+
+  fill(255).ellipse(centerX + radius / 3, centerY - radius / 2, 20);
+  fill(0).ellipse(centerX + radius / 3 + clamp((mouseX - centerX) / 100, -4, 4), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), 10);
+
+  fill(255).triangle(centerX, centerY, centerX - radius / 4, centerY + radius / 4, centerX + radius / 4, centerY + radius / 4);
+
+}
+
+function moveShape() {
+  //move center point
+  deltaX = mouseX - centerX;
+  deltaY = mouseY - centerY;
+
+  // create springing effect
+  deltaX *= springing;
+  deltaY *= springing;
+  accelX += deltaX;
+  accelY += deltaY;
+
+  // move predator's center
+  centerX += accelX;
+  centerY += accelY;
+
+  // slow down springing
+  accelX *= damping;
+  accelY *= damping;
+
+  // change curve tightness
+  organicConstant = 1 - ((abs(accelX) + abs(accelY)) * 0.1);
+
+  //move nodes
+  for (let i = 0; i < nodes; i++) {
+    nodeX[i] = nodeStartX[i] + sin(radians(angle[i])) * (accelX * boundPower);
+    nodeY[i] = nodeStartY[i] + sin(radians(angle[i])) * (accelY * boundPower);
+
+
+    node2X[i] = node2StartX[i] + sin(radians(angle[i])) * (accelX * boundPower);
+    node2Y[i] = node2StartY[i] + sin(radians(angle[i])) * (accelY * boundPower);
+
+    // nodeX[i] = nodeStartX[i];
+    // nodeY[i] = nodeStartY[i];
+
+    angle[i] += frequency[i];
+  }
+}
+
+function clamp(x, min, max) {
+  if (x < min)
+    return min;
+  else if (x > max)
+    return max;
+  return x;
+}
