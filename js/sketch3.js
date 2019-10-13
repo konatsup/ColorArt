@@ -365,6 +365,8 @@ let updateIcon;
 let updateButton;
 let current = 0;
 
+let sizeText = "Width : Height";
+
 const iconWidth = 80;
 
 function preload() {
@@ -406,7 +408,7 @@ function setup() {
     h: iconWidth
   }
 
-  console.log(windowWidth + " : " + windowHeight);
+  sizeText = windowWidth + " : " + windowHeight;
   // createCanvas(670, 520);
   MAX_COLOR_COUNT = colorList.length;
 
@@ -468,6 +470,7 @@ function draw() {
   if (pDeviceOrientation !== undefined) {
     fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
   }
+  fill(textColor).text(sizeText, windowWidth / 2, windowHeight - 150);
 
   push();
   imageMode(CENTER);
@@ -479,7 +482,7 @@ function draw() {
 }
 
 function windowResized() {
-  console.log(windowWidth + " : " + windowHeight);
+  sizeText = windowWidth + " : " + windowHeight;
   resizeCanvas(windowWidth, windowHeight);
 }
 
