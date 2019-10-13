@@ -1,10 +1,3 @@
-let img;
-let imgClone;
-let msg = "swiped status";
-let mk;
-let top1 = 120;
-let bottom1 = 270;
-
 let colorList = [
   [{
       r: 240,
@@ -343,6 +336,16 @@ let colorList = [
     }
   ]
 ];
+
+let canvas;
+let img;
+let imgClone;
+let msg = "swiped status";
+let mk;
+let top1 = 120;
+let bottom1 = 270;
+
+
 let circle = {
   x: 150,
   y: top1,
@@ -399,7 +402,7 @@ function setup() {
 
   hammer.on("swipe", swiped);
 
-  createCanvas(windowWidth, windowHeight);
+  canvas = createCanvas(windowWidth, windowHeight);
   updateButton = {
     image: updateIcon,
     x: windowWidth / 2,
@@ -481,10 +484,19 @@ function draw() {
 
 }
 
-function windowResized() {
-  sizeText = windowWidth + " : " + windowHeight;
-  resizeCanvas(windowWidth, windowHeight);
-}
+// function windowResized() {
+//   sizeText = windowWidth + " : " + windowHeight;
+//   resizeCanvas(windowWidth, windowHeight);
+// }
+
+window.onresize = function () {
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+  canvas.size(w, h);
+  sizeText = w + " : " + h;
+  width = w;
+  height = h;
+};
 
 function swiped(event) {
   if (event.direction == 4) {
