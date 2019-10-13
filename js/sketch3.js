@@ -688,14 +688,6 @@ const fadeOutInitMessage = () => {
   });
 };
 
-// function draw() {
-//   //fade background
-//   fill(0, 100);
-//   rect(0, 0, width, height);
-
-// }
-var array = [];
-
 function drawShape() {
   //  calculate node  starting locations
   for (let i = 0; i < nodes; i++) {
@@ -729,61 +721,6 @@ function drawShape() {
   node2StartY[8] = centerY + radius * 2;
   node2StartY[9] = centerY + radius * 2.2;
   node2StartY[10] = centerY + radius * 2.2;
-
-
-  /*
-    nodeStartX[0] = centerX - radius;
-    nodeStartX[1] = centerX;
-    nodeStartX[2] = centerX + radius;
-    nodeStartX[3] = centerX + radius / 1.5;
-    nodeStartX[4] = centerX + radius * divSqrt2;
-    nodeStartX[5] = centerX + radius;
-    nodeStartX[6] = centerX + radius * divSqrt2;
-    nodeStartX[7] = centerX;
-    nodeStartX[8] = centerX - radius * divSqrt2;
-    nodeStartX[9] = centerX - radius;
-    nodeStartX[10] = centerX - radius * divSqrt2;
-
-    nodeStartX[11] = centerX - radius / 1.5;
-    nodeStartX[12] = centerX - radius;
-    nodeStartX[13] = centerX;
-
-
-    nodeStartY[0] = centerY + radius * monsterHeight;
-    nodeStartY[1] = centerY + radius * monsterHeight;
-    nodeStartY[2] = centerY + radius * monsterHeight;
-    nodeStartY[3] = centerY + radius * monsterHeight * 0.8;
-    nodeStartY[4] = centerY + radius / 1.2;
-    nodeStartY[5] = centerY;
-    nodeStartY[6] = centerY - radius / 1.2;
-    nodeStartY[7] = centerY - radius;
-    nodeStartY[8] = centerY - radius / 1.2;
-    nodeStartY[9] = centerY;
-    nodeStartY[10] = centerY + radius / 1.2;
-
-    nodeStartY[11] = centerY + radius * monsterHeight * 0.8;
-    nodeStartY[12] = centerY + radius * monsterHeight;
-    nodeStartY[13] = centerY + radius * monsterHeight;
-  */
-
-
-  // for (let i = 4; i < 11; i++) {
-  //   nodeStartX[i] = centerX + cos(radians(rotAngle)) * radius;
-  //   nodeStartY[i] = centerY + sin(radians(rotAngle)) * radius;
-  //   // console.log(cos(radians(rotAngle)));
-  //   rotAngle += 360 / 8;
-  //   console.log(rotAngle)
-  // }
-
-
-  // array = [];
-  // for (let i = 0; i < nodes; i++) {
-  //   array.push({
-  //     x: node2StartX[i] - centerX,
-  //     y: node2StartY[i] - centerY
-  //   })
-  // }
-  // console.log(array);
 
   // draw polygon
   curveTightness(organicConstant);
@@ -847,12 +784,8 @@ function moveShape() {
     nodeX[i] = nodeStartX[i] + sin(radians(angle[i])) * (accelX * boundPower);
     nodeY[i] = nodeStartY[i] + sin(radians(angle[i])) * (accelY * boundPower);
 
-
     node2X[i] = node2StartX[i] + sin(radians(angle[i])) * (accelX * boundPower);
     node2Y[i] = node2StartY[i] + sin(radians(angle[i])) * (accelY * boundPower);
-
-    // nodeX[i] = nodeStartX[i];
-    // nodeY[i] = nodeStartY[i];
 
     angle[i] += frequency[i];
   }
