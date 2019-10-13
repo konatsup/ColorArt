@@ -344,7 +344,10 @@ let msg = "swiped status";
 let mk;
 let top1 = 120;
 let bottom1 = 270;
-
+let swipeMsg = {
+  message: "⬅︎ 左右にスワイプすると配色が変わります ➡︎",
+  a: 255
+}
 
 let circle = {
   x: 150,
@@ -421,6 +424,7 @@ function setup() {
   mk = createGraphics(windowWidth, windowHeight);
   circle1Motion1();
   circle2Motion1();
+  fadeInInitMessage();
 
   pDeviceOrientation = deviceOrientation;
 }
@@ -475,6 +479,9 @@ function draw() {
   //   fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
   // }
   // fill(textColor).text(sizeText, windowWidth / 2, windowHeight - 150);
+  textSize(15).
+  fill(textColor, 255 - swipeMsg.a).text(swipeMsg.message, windowWidth / 2, windowHeight - 150);
+
 
   push();
   imageMode(CENTER);
@@ -596,5 +603,21 @@ const circle2Motion2 = () => {
     y: bottom1,
     ease: Circ.easeInOut,
     onComplete: circle2Motion1
+  });
+};
+
+const fadeInInitMessage = () => {
+  TweenMax.to(swipeMsg, 0.5, {
+    a: 0,
+    ease: Power2.easeIn,
+    onComplete: fadeOutInitMessage
+  });
+};
+
+const fadeOutInitMessage = () => {
+  TweenMax.to(swipeMsg, 3, {
+    a: 255,
+    ease: Expo.easeIn,
+    onComplete: () => {}
   });
 };
