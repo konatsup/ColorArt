@@ -374,7 +374,7 @@ let monster;
 let centerX = 0.0,
   centerY = 0.0;
 
-let radius = 50,
+let radius = 60,
   rotAngle = -45;
 let accelX = 0.0,
   accelY = 0.0;
