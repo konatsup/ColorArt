@@ -406,6 +406,7 @@ function setup() {
     h: iconWidth
   }
 
+  console.log(windowWidth + " : " + windowHeight);
   // createCanvas(670, 520);
   MAX_COLOR_COUNT = colorList.length;
 
@@ -420,8 +421,6 @@ function setup() {
 }
 
 function draw() {
-  console.log(pDeviceOrientation);
-
   if (pDeviceOrientation !== undefined && pDeviceOrientation !== deviceOrientation) {
     noCanvas();
     createCanvas(windowWidth, windowHeight);
@@ -466,8 +465,9 @@ function draw() {
   // fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
 
   // fill(textColor).text(msg, windowWidth / 2, windowHeight - 150);
-  fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
-
+  if (pDeviceOrientation !== undefined) {
+    fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
+  }
 
   push();
   imageMode(CENTER);
@@ -476,6 +476,11 @@ function draw() {
   pop();
 
 
+}
+
+function windowResized() {
+  console.log(windowWidth + " : " + windowHeight);
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function swiped(event) {
