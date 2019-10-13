@@ -393,7 +393,7 @@ let springing = 0.0009,
 //corner nodes
 let nodes = 25;
 
-let boundPower = 0.5;
+let boundPower = 0.4;
 
 //zero fill arrays
 let nodeStartX = [];
@@ -810,11 +810,11 @@ function drawShape() {
   }
   endShape(CLOSE);
   fill(255).ellipse(centerX - radius / 3, centerY - radius / 2, 20);
-  fill(0).ellipse(centerX - radius / 3 + clamp((mouseX - centerX) / 100, -4, 4), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), 10);
+  fill(0).ellipse(centerX - radius / 3 + 2 + clamp((mouseX - centerX) / 100, -5, 3), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), 10);
 
 
   fill(255).ellipse(centerX + radius / 3, centerY - radius / 2, 20);
-  fill(0).ellipse(centerX + radius / 3 + clamp((mouseX - centerX) / 100, -4, 4), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), 10);
+  fill(0).ellipse(centerX + radius / 3 - 2 + clamp((mouseX - centerX) / 100, -3, 5), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), 10);
 
   fill(255).triangle(centerX, centerY, centerX - radius / 4, centerY + radius / 4, centerX + radius / 4, centerY + radius / 4);
 
