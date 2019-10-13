@@ -350,6 +350,10 @@ let swipeMsg = {
   a: 255
 }
 
+let pcMsg = {
+  a: 255
+}
+
 let circle;
 
 let circle2;
@@ -367,6 +371,7 @@ let current = 0;
 
 let sizeText = "Width : Height";
 
+let device;
 const iconWidth = 100;
 
 let monster;
@@ -374,7 +379,8 @@ let monster;
 let centerX = 0.0,
   centerY = 0.0;
 
-let radius = 60,
+
+let radius = 100,
   rotAngle = -45;
 let accelX = 0.0,
   accelY = 0.0;
@@ -435,6 +441,39 @@ function setup() {
   hammer.on("swipe", swiped);
 
   canvas = createCanvas(windowWidth, windowHeight);
+
+  device = (windowWidth > 480 && windowHeight > 500) ? "pc" : "smartphone";
+
+  if (device == "smartphone") {
+    radius = 60;
+    circle = {
+      x: windowWidth / 2,
+      y: top1,
+      r: 200
+    };
+
+    circle2 = {
+      x: windowWidth / 2,
+      y: bottom1,
+      r: 150
+    };
+  } else if (device == "pc") {
+    circle = {
+      x: windowWidth / 2,
+      y: top1,
+      r: 200
+    };
+
+    circle2 = {
+      x: windowWidth / 2,
+      y: bottom1,
+      r: 150
+    };
+
+    fadeInPC();
+
+  }
+
   updateButton = {
     image: updateIcon,
     x: windowWidth - iconWidth / 1.5,
@@ -442,6 +481,7 @@ function setup() {
     w: iconWidth,
     h: iconWidth
   }
+
   monster = {
     image: updateIcon,
     x: windowWidth / 2,
@@ -450,17 +490,7 @@ function setup() {
     h: 200
   }
 
-  circle = {
-    x: windowWidth / 2,
-    y: top1,
-    r: 200
-  };
 
-  circle2 = {
-    x: windowWidth / 2,
-    y: bottom1,
-    r: 150
-  };
 
   sizeText = windowWidth + " : " + windowHeight;
   // createCanvas(670, 520);
@@ -539,29 +569,29 @@ function draw() {
   moveShape();
 
   textAlign(CENTER);
-  textSize(24);
-  // fill(textColor).text("Enterキー: 色の組み合わせを変更", 250, 420);
-  // fill(textColor).text("⬅︎ 左矢印キー: 前の配色", 250, 450);
-  // fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
+  textSize(22);
+  if (device == "smartphone") {
+    textSize(15).
+    fill(textColor, 255 - swipeMsg.a).text(swipeMsg.message, windowWidth / 2, windowHeight - 150);
+    push();
+    imageMode(CENTER);
+    tint(textColor);
+    image(updateButton.image, updateButton.x, updateButton.y, updateButton.w, updateButton.h);
+    pop();
+  } else if (device == "pc") {
+    // fill(textColor, 255 - swipeMsg.a).text(swipeMsg.message, windowWidth / 2, windowHeight - 150);
+    fill(textColor, 255 - pcMsg.a).text("Enterキー: 色の組み合わせを変更", windowWidth / 2, windowHeight - 160);
+    fill(textColor, 255 - pcMsg.a).text("⬅︎ 左矢印キー: 前の配色", windowWidth / 2, windowHeight - 130);
+    fill(textColor, 255 - pcMsg.a).text("➡︎ 右矢印キー: 次の配色", windowWidth / 2, windowHeight - 100);
+
+  }
 
   // fill(textColor).text(msg, windowWidth / 2, windowHeight - 150);
 
   // if (pDeviceOrientation !== undefined) {
   //   fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
   // }
-  // fill(textColor).text(sizeText, windowWidth / 2, windowHeight - 150);
-  textSize(15).
-  fill(textColor, 255 - swipeMsg.a).text(swipeMsg.message, windowWidth / 2, windowHeight - 150);
-
-
-
-  push();
-  imageMode(CENTER);
-  tint(textColor);
-  image(updateButton.image, updateButton.x, updateButton.y, updateButton.w, updateButton.h);
-  pop();
-
-
+  // fill(textColor).text(device, windowWidth / 2, windowHeight - 150);
 
 
 }
@@ -696,6 +726,22 @@ const fadeOutInitMessage = () => {
   });
 };
 
+const fadeInPC = () => {
+  TweenMax.to(pcMsg, 0.5, {
+    a: 0,
+    ease: Power2.easeIn,
+    onComplete: fadeOutPC
+  });
+};
+
+const fadeOutPC = () => {
+  TweenMax.to(pcMsg, 10, {
+    a: 255,
+    ease: Expo.easeIn,
+    onComplete: () => {}
+  });
+};
+
 function drawShape() {
   //  calculate node  starting locations
   for (let i = 0; i < nodes; i++) {
@@ -754,12 +800,12 @@ function drawShape() {
     curveVertex(node2X[i], node2Y[i]);
   }
   endShape(CLOSE);
-  fill(255).ellipse(centerX - radius / 3, centerY - radius / 2, 20);
-  fill(0).ellipse(centerX - radius / 3 + 2 + clamp((mouseX - centerX) / 100, -5, 3), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), 10);
+  fill(255).ellipse(centerX - radius / 3, centerY - radius / 2, radius / 3);
+  fill(0).ellipse(centerX - radius / 3 + 2 + clamp((mouseX - centerX) / 100, -5, 3), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), radius / 6);
 
 
-  fill(255).ellipse(centerX + radius / 3, centerY - radius / 2, 20);
-  fill(0).ellipse(centerX + radius / 3 - 2 + clamp((mouseX - centerX) / 100, -3, 5), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), 10);
+  fill(255).ellipse(centerX + radius / 3, centerY - radius / 2, radius / 3);
+  fill(0).ellipse(centerX + radius / 3 - 2 + clamp((mouseX - centerX) / 100, -3, 5), centerY - radius / 2 + clamp((mouseY - centerY) / 100, -4, 4), radius / 6);
 
   fill(255).triangle(centerX, centerY, centerX - radius / 4, centerY + radius / 4, centerX + radius / 4, centerY + radius / 4);
 
