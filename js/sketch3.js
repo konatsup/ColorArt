@@ -1,7 +1,7 @@
-var img;
-var imgClone;
-
-var mk;
+let img;
+let imgClone;
+let msg;
+let mk;
 let top1 = 120;
 let bottom1 = 270;
 
@@ -368,7 +368,7 @@ let current = 0;
 const iconWidth = 80;
 
 function preload() {
-  updateIcon = loadImage('assets/img/update.png');
+  updateIcon = loadImage('assets/img/update2.png');
 
 }
 
@@ -383,6 +383,19 @@ function setup() {
   }, {
     passive: false
   });
+
+  // set options to prevent default behaviors for swipe, pinch, etc
+  var options = {
+    preventDefault: true
+  };
+
+  // document.body registers gestures anywhere on the page
+  var hammer = new Hammer(document.body, options);
+  hammer.get('swipe').set({
+    direction: Hammer.DIRECTION_ALL
+  });
+
+  hammer.on("swipe", swiped);
 
   createCanvas(windowWidth, windowHeight);
   updateButton = {
@@ -448,12 +461,31 @@ function draw() {
   fill(textColor).text("⬅︎ 左矢印キー: 前の配色", 250, 450);
   fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
 
+  fill(textColor).text(msg, windowWidth / 2, windowHeight - 150);
+
+
   push();
   imageMode(CENTER);
+  tint(textColor);
   image(updateButton.image, updateButton.x, updateButton.y, updateButton.w, updateButton.h);
   pop();
 
 
+}
+
+function swiped(event) {
+  console.log(msg);
+  if (event.direction == 4) {
+    msg = "you swiped right";
+    next();
+  } else if (event.direction == 8) {
+    msg = "you swiped up";
+  } else if (event.direction == 16) {
+    msg = "you swiped down";
+  } else if (event.direction == 2) {
+    msg = "you swiped left";
+    prev();
+  }
 }
 
 function keyPressed() {

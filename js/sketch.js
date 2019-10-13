@@ -1,7 +1,7 @@
 let bgm;
 let diameter = 0;
-// const ROOT_PATH = "http://localhost:8100/";
-const ROOT_PATH = ""; // local server host
+const ROOT_PATH = "http://localhost:8100/";
+// const ROOT_PATH = ""; // local server host
 
 let currentPosition = 0;
 const MAX_HEIGHT = 10000;
@@ -140,8 +140,14 @@ function draw() {
     //   bgm.play();
     // }
   }
-  background(255, 202, 0);
-  fill(0)
+  // background(255, 202, 0);
+  // background(0);
+  blendMode(DIFFERENCE);
+  // fill(100)
+  //   .rect(0, 0, windowWidth, windowHeight);
+
+
+  fill(mapObjectToColor(colorList[5].rgb))
     .ellipse(circle.x, circle.y, circle.r);
 
   colorMode(RGB);
@@ -163,6 +169,9 @@ function draw() {
     .ellipse(circle2.x, circle2.y, circle2.r);
 
 
+
+
+
   // for (let i = 0; i < maxUseColorCount - useColorCount; i++) {
   //   fill(mapObjectToColor(colorList[colorNumList[i]].rgb))
   //     .rect()
@@ -180,7 +189,6 @@ function draw() {
   //   ripple.radius += inc;
   //   ripple.fadeCurrentTime++;
   //   let alpha = fadeoutAlpha(fadeoutLimit, ripple.fadeCurrentTime / 60, fadeoutLimit);
-
 }
 
 function finished() {
