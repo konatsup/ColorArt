@@ -405,8 +405,8 @@ function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   updateButton = {
     image: updateIcon,
-    x: windowWidth / 2,
-    y: windowHeight - 100,
+    x: windowWidth - iconWidth / 1.5,
+    y: windowHeight - iconWidth / 1.5,
     w: iconWidth,
     h: iconWidth
   }
@@ -415,10 +415,10 @@ function setup() {
   // createCanvas(670, 520);
   MAX_COLOR_COUNT = colorList.length;
 
-  img = createGraphics(width, height);
+  img = createGraphics(windowWidth, windowHeight);
   img.noStroke();
 
-  mk = createGraphics(width, height);
+  mk = createGraphics(windowWidth, windowHeight);
   circle1Motion1();
   circle2Motion1();
 
@@ -470,10 +470,11 @@ function draw() {
   // fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
 
   // fill(textColor).text(msg, windowWidth / 2, windowHeight - 150);
-  if (pDeviceOrientation !== undefined) {
-    fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
-  }
-  fill(textColor).text(sizeText, windowWidth / 2, windowHeight - 150);
+
+  // if (pDeviceOrientation !== undefined) {
+  //   fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
+  // }
+  // fill(textColor).text(sizeText, windowWidth / 2, windowHeight - 150);
 
   push();
   imageMode(CENTER);
@@ -494,6 +495,8 @@ window.onresize = function () {
   var h = window.innerHeight;
   canvas.size(w, h);
   sizeText = w + " : " + h;
+  updateButton.x = windowWidth - iconWidth / 1.5;
+  updateButton.y = windowHeight - iconWidth / 1.5;
   width = w;
   height = h;
 };
