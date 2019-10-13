@@ -370,10 +370,10 @@ let current = 0;
 
 let sizeText = "Width : Height";
 
-const iconWidth = 80;
+const iconWidth = 100;
 
 function preload() {
-  updateIcon = loadImage('assets/img/update2.png');
+  updateIcon = loadImage('assets/img/update8.png');
 
 }
 
@@ -429,7 +429,7 @@ function draw() {
   if (pDeviceOrientation !== undefined && pDeviceOrientation !== deviceOrientation) {
     noCanvas();
     createCanvas(windowWidth, windowHeight);
-    next();
+    // next();
   }
   pDeviceOrientation = deviceOrientation;
 
