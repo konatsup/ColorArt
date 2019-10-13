@@ -495,8 +495,8 @@ window.onresize = function () {
   var h = window.innerHeight;
   canvas.size(w, h);
   sizeText = w + " : " + h;
-  updateButton.x = windowWidth - iconWidth / 1.5;
-  updateButton.y = windowHeight - iconWidth / 1.5;
+  updateButton.x = w - iconWidth / 1.5;
+  updateButton.y = h - iconWidth / 1.5;
   width = w;
   height = h;
 };
