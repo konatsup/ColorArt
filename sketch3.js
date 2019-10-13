@@ -361,6 +361,16 @@ let pDeviceOrientation;
 const mapObjectToColor = obj => {
   return color(obj.r, obj.g, obj.b);
 };
+let updateIcon;
+let updateButton;
+let current = 0;
+
+const iconWidth = 80;
+
+function preload() {
+  updateIcon = loadImage('assets/img/update.png');
+
+}
 
 function setup() {
   window.addEventListener("touchstart", function (event) {
@@ -375,6 +385,14 @@ function setup() {
   });
 
   createCanvas(windowWidth, windowHeight);
+  updateButton = {
+    image: updateIcon,
+    x: windowWidth / 2,
+    y: windowHeight - 100,
+    w: iconWidth,
+    h: iconWidth
+  }
+
   // createCanvas(670, 520);
   MAX_COLOR_COUNT = colorList.length;
 
@@ -387,10 +405,6 @@ function setup() {
 
   pDeviceOrientation = deviceOrientation;
 }
-
-let count = 0;
-let a = 1;
-let current = 0;
 
 function draw() {
   if (pDeviceOrientation !== undefined && pDeviceOrientation !== deviceOrientation) {
@@ -433,6 +447,13 @@ function draw() {
   fill(textColor).text("Enterキー: 色の組み合わせを変更", 250, 420);
   fill(textColor).text("⬅︎ 左矢印キー: 前の配色", 250, 450);
   fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
+
+  push();
+  imageMode(CENTER);
+  image(updateButton.image, updateButton.x, updateButton.y, updateButton.w, updateButton.h);
+  pop();
+
+
 }
 
 function keyPressed() {
@@ -442,12 +463,33 @@ function keyPressed() {
     next();
   }
   if (keyCode === ENTER) {
-    for (var i = colorList[palletNum].length - 1; i > 0; i--) {
-      var r = Math.floor(Math.random() * (i + 1));
-      var tmp = colorList[palletNum][i];
-      colorList[palletNum][i] = colorList[palletNum][r];
-      colorList[palletNum][r] = tmp;
-    }
+    sortByRandom();
+  }
+}
+
+function mousePressed() {
+  if ((mouseX - updateButton.x) * (mouseX - updateButton.x) + (mouseY - updateButton.y) * (mouseY - updateButton.y) <= updateButton.w * updateButton.w / 4) {
+    sortByRandom();
+  }
+}
+
+function touchStarted() {
+  if (touches.length <= 0) {
+    return;
+  }
+
+  if ((touches[0].x - updateButton.x) * (touches[0].x - updateButton.x) + (touches[0].y - updateButton.y) * (touches[0].y - updateButton.y) <= updateButton.w * updateButton.w / 4) {
+    sortByRandom();
+  }
+
+}
+
+const sortByRandom = () => {
+  for (var i = colorList[palletNum].length - 1; i > 0; i--) {
+    var r = Math.floor(Math.random() * (i + 1));
+    var tmp = colorList[palletNum][i];
+    colorList[palletNum][i] = colorList[palletNum][r];
+    colorList[palletNum][r] = tmp;
   }
 }
 
