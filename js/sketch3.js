@@ -350,17 +350,10 @@ let swipeMsg = {
   a: 255
 }
 
-let circle = {
-  x: 150,
-  y: top1,
-  r: 200
-};
+let circle;
 
-let circle2 = {
-  x: 150,
-  y: bottom1,
-  r: 150
-};
+let circle2;
+
 let palletNum = 0;
 let MAX_COLOR_COUNT;
 let pDeviceOrientation;
@@ -456,6 +449,18 @@ function setup() {
     w: 150,
     h: 200
   }
+
+  circle = {
+    x: windowWidth / 2,
+    y: top1,
+    r: 200
+  };
+
+  circle2 = {
+    x: windowWidth / 2,
+    y: bottom1,
+    r: 150
+  };
 
   sizeText = windowWidth + " : " + windowHeight;
   // createCanvas(670, 520);
