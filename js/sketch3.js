@@ -529,6 +529,10 @@ function draw() {
   img.clear();
   mk.clear();
 
+  // うみぼうず
+  drawShape();
+  moveShape();
+
   textAlign(CENTER);
   textSize(24);
   // fill(textColor).text("Enterキー: 色の組み合わせを変更", 250, 420);
@@ -545,6 +549,7 @@ function draw() {
   fill(textColor, 255 - swipeMsg.a).text(swipeMsg.message, windowWidth / 2, windowHeight - 150);
 
 
+
   push();
   imageMode(CENTER);
   tint(textColor);
@@ -552,9 +557,7 @@ function draw() {
   pop();
 
 
-  // うみぼうず
-  drawShape();
-  moveShape();
+
 
 }
 
