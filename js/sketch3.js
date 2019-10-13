@@ -461,11 +461,11 @@ function draw() {
 
   textAlign(CENTER);
   textSize(24);
-  fill(textColor).text("Enterキー: 色の組み合わせを変更", 250, 420);
-  fill(textColor).text("⬅︎ 左矢印キー: 前の配色", 250, 450);
-  fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
+  // fill(textColor).text("Enterキー: 色の組み合わせを変更", 250, 420);
+  // fill(textColor).text("⬅︎ 左矢印キー: 前の配色", 250, 450);
+  // fill(textColor).text("➡︎ 右矢印キー: 次の配色", 250, 480);
 
-  fill(textColor).text(msg, windowWidth / 2, windowHeight - 150);
+  // fill(textColor).text(msg, windowWidth / 2, windowHeight - 150);
   fill(textColor).text(pDeviceOrientation, windowWidth / 2, windowHeight - 150);
 
 
