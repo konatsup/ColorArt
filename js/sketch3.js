@@ -456,6 +456,8 @@ function draw() {
 
   img.clear();
   mk.clear();
+
+  textAlign(CENTER);
   textSize(24);
   fill(textColor).text("Enterキー: 色の組み合わせを変更", 250, 420);
   fill(textColor).text("⬅︎ 左矢印キー: 前の配色", 250, 450);
@@ -474,16 +476,15 @@ function draw() {
 }
 
 function swiped(event) {
-  console.log(msg);
   if (event.direction == 4) {
-    msg = "you swiped right";
+    msg = "swiped right";
     next();
   } else if (event.direction == 8) {
-    msg = "you swiped up";
+    msg = "swiped up";
   } else if (event.direction == 16) {
-    msg = "you swiped down";
+    msg = "swiped down";
   } else if (event.direction == 2) {
-    msg = "you swiped left";
+    msg = "swiped left";
     prev();
   }
 }
