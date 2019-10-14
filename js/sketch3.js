@@ -401,6 +401,18 @@ let nodeX = [];
 let nodeY = [];
 let angle = [];
 let frequency = [];
+let pass = "";
+let messageFlg = false;
+let backgroundCircle = {
+  r: 0
+};
+let messageAlpha = {
+  a: 255
+}
+let spreadFlg = false;
+
+const yMessage = "ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。";
+const jMessage = "ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。";
 
 // soft-body dynamics
 let organicConstant = 1.0;
@@ -409,9 +421,11 @@ let node2StartX = [];
 let node2StartY = [];
 let node2X = [];
 let node2Y = [];
+let myFont;
 
 function preload() {
   updateIcon = loadImage('assets/img/update8.png');
+  myFont = loadFont("assets/fonts/gen.ttf");
 
 }
 
@@ -584,6 +598,57 @@ function draw() {
     fill(textColor, 255 - pcMsg.a).text("⬅︎ 左矢印キー: 前の配色", windowWidth / 2, windowHeight - 130);
     fill(textColor, 255 - pcMsg.a).text("➡︎ 右矢印キー: 次の配色", windowWidth / 2, windowHeight - 100);
 
+    if (messageFlg) {
+      if (spreadFlg == false) {
+        spreadCircle();
+        setTimeout(fadeInMessage, 3000);
+      }
+      // console.log(pass);
+      if (pass == "yui") {
+        fill(mapObjectToColor(colorList[palletNum][current])).ellipse(centerX, centerY, backgroundCircle.r);
+      } else if (pass == "jas") {
+        fill(mapObjectToColor(colorList[palletNum][current + 1])).ellipse(circle.x, circle.y, backgroundCircle.r);
+      }
+      push();
+      textAlign(CENTER);
+      rectMode(CORNER);
+      textFont(myFont);
+
+      // textSize(windowWidth / (textCount * 1.8));
+      // textLeading(windowWidth / (textCount * 1.8));
+      // textSize(textCount / 2);
+      // textLeading(textCount / 1.5);
+      let textCount = 46;
+
+      if (pass == "yui") {
+        // rectMode(CENTER);
+
+        textSize(textCount / 2);
+        textLeading(textCount / 1.5);
+        let s = sliceText(yMessage, textCount);
+
+        // textSize(windowWidth / (textCount * 1.8));
+        // textLeading(windowWidth / (textCount * 1.8));
+
+        fill(textColor, 255 - messageAlpha.a).text(s, windowWidth / 2, 100);
+
+      } else if (pass == "jas") {
+
+        textSize(textCount / 2);
+        textLeading(textCount / 1.5);
+
+        let s = sliceText(jMessage, textCount);
+        // textSize(windowWidth / 50);
+        // textLeading(windowWidth / 50);
+        fill(textColor, 255 - messageAlpha.a).text(s, windowWidth / 2, 100);
+
+      }
+      fill(textColor, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + textCount * 6, windowHeight - 100);
+
+      pop();
+
+    }
+
   }
 
   // fill(textColor).text(msg, windowWidth / 2, windowHeight - 150);
@@ -652,6 +717,57 @@ function touchStarted() {
   }
 
 }
+
+function keyTyped() {
+  switch (key) {
+    case "a":
+      if (pass == "j") {
+        pass += "a";
+      } else {
+        pass = "";
+      }
+      break;
+    case "i":
+      if (pass == "yu") {
+        pass += "i";
+        messageFlg = true;
+      } else {
+        pass = "";
+      }
+      break;
+    case "j":
+      if (pass == "") {
+        pass += "j";
+      } else {
+        pass = "";
+      }
+      break;
+    case "s":
+      if (pass == "ja") {
+        pass += "s";
+        messageFlg = true;
+      } else {
+        pass = "";
+      }
+      break;
+    case "u":
+      if (pass == "y") {
+        pass += "u";
+      } else {
+        pass = "";
+      }
+      break;
+    case "y":
+      if (pass == "") {
+        pass += "y";
+      } else {
+        pass = "";
+      }
+      break;
+  }
+
+}
+
 
 const sortByRandom = () => {
   for (var i = colorList[palletNum].length - 1; i > 0; i--) {
@@ -738,6 +854,24 @@ const fadeOutPC = () => {
   TweenMax.to(pcMsg, 10, {
     a: 255,
     ease: Expo.easeIn,
+    onComplete: () => {}
+  });
+};
+
+const spreadCircle = () => {
+  TweenMax.to(backgroundCircle, 5, {
+    r: windowWidth * 3,
+    ease: Power2.easeOut,
+    onComplete: () => {
+      spreadFlg = true;
+    }
+  });
+};
+
+const fadeInMessage = () => {
+  TweenMax.to(messageAlpha, 5, {
+    a: 0,
+    ease: Power2.easeOut,
     onComplete: () => {}
   });
 };
@@ -851,4 +985,17 @@ function clamp(x, min, max) {
   else if (x > max)
     return max;
   return x;
+}
+
+const sliceText = (txt, wCount) => {
+  var str1, str2, sliceStr;
+  var addBreakStr = "";
+  sliceStr = txt;
+  for (var i = 0; i < txt.length / wCount; i++) {
+    str1 = sliceStr.slice(0, wCount);
+    str2 = sliceStr.slice(wCount);
+    addBreakStr += str1 + '\n';
+    sliceStr = str2;
+  }
+  return addBreakStr;
 }
