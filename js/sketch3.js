@@ -411,9 +411,8 @@ let messageAlpha = {
 }
 let spreadFlg = false;
 
-const yMessage = "ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。ここにテキストが入りますY。";
-const jMessage = "ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。ここにテキストが入りますJ。";
-
+const yMessage = "ちゃんゆい！約1ヶ月お疲れ様でした！ちゃんゆいはWebDの講師として最高だったと思います(マジ大先生)。人数も多く本当に大変だったと思うけど、その中で僕の相談に乗ってくれて本当に感謝してます。自分にはなかった発想やUI/UXの視点からのフィードバックなど一つ一つが刺激的で、さすがだなぁと思う反面、自分もその期待に答えようと思って一層頑張ろうと思ってやってました。また、研修が始まってすぐに「ちゃんとガチでやりきろう」という話をして、今回は思い切り挑戦しようと思ってやりました。妥協しないで強い意志をもってモノづくりに真剣なところがすごく好きなので、今後も一緒に色々やっていけたらなと思ってます。京都での飲みもすごく楽しくて、 自分がびっくりするくらいリラックスしながら過ごせました。 でも最近ちょっと甘えすぎてしまって反省しているので、 もう少ししっかりして締めるところは締めていきたいと思っております。(決意表明演説) あと今度一緒のチームでハッカソンとかあったら出たいぞ〜！これからもよろしくお願いします〜 :sake: :banana_yogurt: :captain: "
+const jMessage = "じゃす！約1ヵ月お疲れ様でした！じゃすはwebコースのサポートで来てくれて、本当に助けられるシーンが多くて感謝感謝の気持ちです。途中でアイデアが迷走して悩んでいたときにミーティングしてくれて、あれがなければ今どうなってるか分からないというくらい僕にとって大きな体験でした。人の考えをうまく言語化させたり、いい方向に導こうとする気持ちとスキルがあって、これからももっともっと良いものをつくっていく人になるんだなぁと思うし、これからも応援してます。あと京都での飲みも楽しくて、 一週間のワクワクがそこに詰まってたりしました(⬅悪い)。 うまい飯とお酒は神だし、 ああやって話せる空間がすごく好きなので、 誘って付き合ってくれてほんとありがとう。 最近ちょっと甘えっぱなしだったので、 これからはもう少ししっかりしていきたい(抱負) のと、 僕ができることで返せることはたくさん返していきたいので、 気軽に色々誘ってもらえたら嬉しいです。 あと今度ハッカソンとか一緒に出たいぞ！これからもよろしくお願いします〜:sake: :beer: :captain:  "
 // soft-body dynamics
 let organicConstant = 1.0;
 
@@ -610,7 +609,7 @@ function draw() {
         fill(mapObjectToColor(colorList[palletNum][current + 1])).ellipse(circle.x, circle.y, backgroundCircle.r);
       }
       push();
-      textAlign(CENTER);
+      textAlign(LEFT);
       rectMode(CORNER);
       textFont(myFont);
 
@@ -621,29 +620,21 @@ function draw() {
       let textCount = 46;
 
       if (pass == "yui") {
-        // rectMode(CENTER);
-
         textSize(textCount / 2);
-        textLeading(textCount / 1.5);
+        textLeading(textCount);
         let s = sliceText(yMessage, textCount);
-
-        // textSize(windowWidth / (textCount * 1.8));
-        // textLeading(windowWidth / (textCount * 1.8));
-
-        fill(textColor, 255 - messageAlpha.a).text(s, windowWidth / 2, 100);
+        fill(textColor, 255 - messageAlpha.a).text(s, 300, 200);
 
       } else if (pass == "jas") {
 
         textSize(textCount / 2);
-        textLeading(textCount / 1.5);
-
+        textLeading(textCount);
         let s = sliceText(jMessage, textCount);
-        // textSize(windowWidth / 50);
-        // textLeading(windowWidth / 50);
-        fill(textColor, 255 - messageAlpha.a).text(s, windowWidth / 2, 100);
+        fill(textColor, 255 - messageAlpha.a).text(s, 300, 200);
 
       }
-      fill(textColor, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + textCount * 6, windowHeight - 100);
+      textAlign(RIGHT);
+      fill(textColor, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, windowHeight - 250);
 
       pop();
 
@@ -764,6 +755,9 @@ function keyTyped() {
         pass = "";
       }
       break;
+  }
+  if (pass == "") {
+    messageFlg = false;
   }
 
 }
