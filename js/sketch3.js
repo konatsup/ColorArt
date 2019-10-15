@@ -620,21 +620,36 @@ function draw() {
       let textCount = 46;
 
       if (pass == "yui") {
+        let baseColor = mapObjectToColor(colorList[palletNum][current]);
+        let textColorY = baseColor.levels[0] * 0.299 +
+          baseColor.levels[1] * 0.587 +
+          baseColor.levels[2] * 0.114 <
+          135 ?
+          255 :
+          60;
         textSize(textCount / 2);
         textLeading(textCount);
         let s = sliceText(yMessage, textCount);
-        fill(textColor, 255 - messageAlpha.a).text(s, 300, 200);
-
+        fill(textColorY, 255 - messageAlpha.a).text(s, windowWidth / 2 - 530, 200);
+        textAlign(RIGHT);
+        fill(textColorY, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, 716);
       } else if (pass == "jas") {
-
+        let baseColor = mapObjectToColor(colorList[palletNum][current]);
+        let textColorJ = baseColor.levels[0] * 0.299 +
+          cbaseColor.levels[1] * 0.587 +
+          baseColor.levels[2] * 0.114 <
+          135 ?
+          255 :
+          60;
         textSize(textCount / 2);
         textLeading(textCount);
         let s = sliceText(jMessage, textCount);
-        fill(textColor, 255 - messageAlpha.a).text(s, 300, 200);
+        fill(textColorJ, 255 - messageAlpha.a).text(s, windowWidth / 2 - 400, 200);
+        textAlign(RIGHT);
+        fill(textColorJ, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, 716);
 
       }
-      textAlign(RIGHT);
-      fill(textColor, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, windowHeight - 250);
+
 
       pop();
 
