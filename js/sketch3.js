@@ -630,9 +630,9 @@ function draw() {
         textSize(textCount / 2);
         textLeading(textCount);
         let s = sliceText(yMessage, textCount);
-        fill(textColorY, 255 - messageAlpha.a).text(s, windowWidth / 2 - 530, 200);
+        fill(textColorY, 255 - messageAlpha.a).text(s, windowWidth / 2 - 530, windowHeight / 2 - 250);
         textAlign(RIGHT);
-        fill(textColorY, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, 716);
+        fill(textColorY, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, windowHeight / 2 + 250);
       } else if (pass == "jas" || pass == "jus") {
         let baseColor = mapObjectToColor(colorList[palletNum][current]);
         let textColorJ = baseColor.levels[0] * 0.299 +
@@ -644,9 +644,9 @@ function draw() {
         textSize(textCount / 2);
         textLeading(textCount);
         let s = sliceText(jMessage, textCount);
-        fill(textColorJ, 255 - messageAlpha.a).text(s, windowWidth / 2 - 530, 200);
+        fill(textColorJ, 255 - messageAlpha.a).text(s, windowWidth / 2 - 530, windowHeight / 2 - 250);
         textAlign(RIGHT);
-        fill(textColorJ, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, 716);
+        fill(textColorJ, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, windowHeight / 2 + 250);
 
       }
 
