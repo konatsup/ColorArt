@@ -636,7 +636,7 @@ function draw() {
       } else if (pass == "jas") {
         let baseColor = mapObjectToColor(colorList[palletNum][current]);
         let textColorJ = baseColor.levels[0] * 0.299 +
-          cbaseColor.levels[1] * 0.587 +
+          baseColor.levels[1] * 0.587 +
           baseColor.levels[2] * 0.114 <
           135 ?
           255 :
