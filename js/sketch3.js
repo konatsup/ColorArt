@@ -605,7 +605,7 @@ function draw() {
       // console.log(pass);
       if (pass == "yui") {
         fill(mapObjectToColor(colorList[palletNum][current])).ellipse(centerX, centerY, backgroundCircle.r);
-      } else if (pass == "jas") {
+      } else if (pass == "jas" || pass == "jus") {
         fill(mapObjectToColor(colorList[palletNum][current + 1])).ellipse(circle.x, circle.y, backgroundCircle.r);
       }
       push();
@@ -633,7 +633,7 @@ function draw() {
         fill(textColorY, 255 - messageAlpha.a).text(s, windowWidth / 2 - 530, 200);
         textAlign(RIGHT);
         fill(textColorY, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, 716);
-      } else if (pass == "jas") {
+      } else if (pass == "jas" || pass == "jus") {
         let baseColor = mapObjectToColor(colorList[palletNum][current]);
         let textColorJ = baseColor.levels[0] * 0.299 +
           baseColor.levels[1] * 0.587 +
@@ -749,7 +749,7 @@ function keyTyped() {
       }
       break;
     case "s":
-      if (pass == "ja") {
+      if (pass == "ja" || pass == "ju") {
         pass += "s";
         messageFlg = true;
       } else {
@@ -757,7 +757,7 @@ function keyTyped() {
       }
       break;
     case "u":
-      if (pass == "y") {
+      if (pass == "y" || pass == "j") {
         pass += "u";
       } else {
         pass = "";
