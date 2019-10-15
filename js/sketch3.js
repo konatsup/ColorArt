@@ -644,7 +644,7 @@ function draw() {
         textSize(textCount / 2);
         textLeading(textCount);
         let s = sliceText(jMessage, textCount);
-        fill(textColorJ, 255 - messageAlpha.a).text(s, windowWidth / 2 - 400, 200);
+        fill(textColorJ, 255 - messageAlpha.a).text(s, windowWidth / 2 - 530, 200);
         textAlign(RIGHT);
         fill(textColorJ, 255 - messageAlpha.a).text("2019年10月14日         こなつ", windowWidth / 2 + 400, 716);
 
