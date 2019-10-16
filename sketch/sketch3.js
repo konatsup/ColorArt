@@ -424,7 +424,7 @@ let myFont;
 
 function preload() {
   updateIcon = loadImage('assets/img/update8.png');
-  myFont = loadFont("assets/fonts/gen.ttf");
+  // myFont = loadFont("assets/fonts/gen.ttf");
 
 }
 
@@ -611,7 +611,7 @@ function draw() {
       push();
       textAlign(LEFT);
       rectMode(CORNER);
-      textFont(myFont);
+      // textFont(myFont);
 
       // textSize(windowWidth / (textCount * 1.8));
       // textLeading(windowWidth / (textCount * 1.8));
